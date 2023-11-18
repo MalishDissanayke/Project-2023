@@ -1,7 +1,5 @@
 package bit.project.server.dao;
 
-import bit.project.server.entity.Civilstatus;
-import bit.project.server.entity.Client;
 import bit.project.server.entity.Supplier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

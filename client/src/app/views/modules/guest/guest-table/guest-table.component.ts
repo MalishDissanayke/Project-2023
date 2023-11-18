@@ -1,41 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import {AbstractComponent} from '../../../../shared/abstract-component';
-import {Client, ClientDataPage} from '../../../../entities/client';
-import {Clientstatus} from '../../../../entities/clientstatus';
+import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ClientstatusService} from '../../../../services/clientstatus.service';
-import {ClientService} from '../../../../services/client.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {PageRequest} from '../../../../shared/page-request';
 import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
 import {DeleteConfirmDialogComponent} from '../../../../shared/views/delete-confirm-dialog/delete-confirm-dialog.component';
+import {AbstractComponent} from '../../../../shared/abstract-component';
+import {Guest, GuestDataPage} from '../../../../entities/guest';
+import {GuestService} from '../../../../services/guest.service';
 import {Gueststatus} from '../../../../entities/gueststatus';
+import {GueststatusService} from '../../../../services/gueststatus.service';
 
 @Component({
-  selector: 'app-client-table',
-  templateUrl: './client-table.component.html',
-  styleUrls: ['./client-table.component.scss']
+  selector: 'app-guest-table',
+  templateUrl: './guest-table.component.html',
+  styleUrls: ['./guest-table.component.scss']
 })
-export class ClientTableComponent extends AbstractComponent implements OnInit {
+export class GuestTableComponent extends AbstractComponent implements OnInit {
 
-  clientDataPage: ClientDataPage;
+  guestDataPage: GuestDataPage;
   displayedColumns: string[] = [];
   pageSize = 5;
   pageIndex = 0;
 
-  clientstatuses: Clientstatus[] = [];
-
+  gueststatuses: Gueststatus[] = [];
 
   codeField = new FormControl();
-  nameField = new FormControl();
-  contact1Field = new FormControl();
-  emailField = new FormControl();
+  callingnameField = new FormControl();
+  nicField = new FormControl();
+  gueststatusField = new FormControl();
 
   constructor(
-    private clientstatusService: ClientstatusService,
-    private clientService: ClientService,
+    private gueststatusService: GueststatusService,
+    private guestService: GuestService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
@@ -60,20 +58,19 @@ export class ClientTableComponent extends AbstractComponent implements OnInit {
     pageRequest.pageSize  = this.pageSize;
 
     pageRequest.addSearchCriteria('code', this.codeField.value);
-    pageRequest.addSearchCriteria('name', this.nameField.value);
-    pageRequest.addSearchCriteria('contact1', this.contact1Field.value);
-    pageRequest.addSearchCriteria('email', this.emailField.value);
+    pageRequest.addSearchCriteria('callingname', this.callingnameField.value);
+    pageRequest.addSearchCriteria('nic', this.nicField.value);
+    pageRequest.addSearchCriteria('gueststatus', this.gueststatusField.value);
 
-    this.clientstatusService.getAll().then((clientstatuses) => {
-      this.clientstatuses = clientstatuses;
+    this.gueststatusService.getAll().then((gueststatuses) => {
+      this.gueststatuses = gueststatuses;
     }).catch((e) => {
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
     });
 
-    this.clientService.getAll(pageRequest).then((page: ClientDataPage) => {
-      this.clientDataPage = page;
-      console.log(this.clientDataPage);
+    this.guestService.getAll(pageRequest).then((page: GuestDataPage) => {
+      this.guestDataPage = page;
     }).catch( e => {
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
@@ -81,15 +78,15 @@ export class ClientTableComponent extends AbstractComponent implements OnInit {
   }
 
   updatePrivileges(): any {
-    this.privilege.add = LoggedUser.can(UsecaseList.ADD_CLIENT);
-    this.privilege.showAll = LoggedUser.can(UsecaseList.SHOW_ALL_CLIENTS);
-    this.privilege.showOne = LoggedUser.can(UsecaseList.SHOW_CLIENT_DETAILS);
-    this.privilege.delete = LoggedUser.can(UsecaseList.DELETE_CLIENT);
-    this.privilege.update = LoggedUser.can(UsecaseList.UPDATE_CLIENT);
+    this.privilege.add = LoggedUser.can(UsecaseList.ADD_GUEST);
+    this.privilege.showAll = LoggedUser.can(UsecaseList.SHOW_ALL_GUESTS);
+    this.privilege.showOne = LoggedUser.can(UsecaseList.SHOW_GUEST_DETAILS);
+    this.privilege.delete = LoggedUser.can(UsecaseList.DELETE_GUEST);
+    this.privilege.update = LoggedUser.can(UsecaseList.UPDATE_GUEST);
   }
 
   setDisplayedColumns(): void{
-    this.displayedColumns = ['code', 'name', 'contact1', 'contact2', 'email' ];
+    this.displayedColumns = [ 'photo', 'code', 'callingname', 'nic', 'designation', 'gueststatus'];
 
     if (this.privilege.delete) { this.displayedColumns.push('delete-col'); }
     if (this.privilege.update) { this.displayedColumns.push('update-col'); }
@@ -102,21 +99,20 @@ export class ClientTableComponent extends AbstractComponent implements OnInit {
     this.loadData();
   }
 
-  async delete(client: Client): Promise<void>{
+  async delete(guest: Guest): Promise<void>{
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '300px',
-      data: {message: client.code + ' - ' + client.name}
+      data: {message: guest.code + ' - ' + guest.nametitle.name + ' ' + guest.callingname}
     });
 
     dialogRef.afterClosed().subscribe( async result => {
       if (!result) { return; }
       try {
-        await this.clientService.delete(client.id);
+        await this.guestService.delete(guest.id);
       }catch (e) {
         this.snackBar.open(e.error.message, null, {duration: 4000});
       }
       this.loadData();
     });
   }
-
 }

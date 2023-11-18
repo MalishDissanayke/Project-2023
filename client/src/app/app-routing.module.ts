@@ -16,10 +16,10 @@ import {ChangePasswordComponent} from './views/modules/user/change-password/chan
 import {ResetPasswordComponent} from './views/modules/user/reset-password/reset-password.component';
 import {ChangePhotoComponent} from './views/modules/user/change-photo/change-photo.component';
 import {MyAllNotificationComponent} from './views/modules/user/my-all-notification/my-all-notification.component';
-import {EmployeeTableComponent} from './views/modules/employee/employee-table/employee-table.component';
-import {EmployeeFormComponent} from './views/modules/employee/employee-form/employee-form.component';
-import {EmployeeDetailComponent} from './views/modules/employee/employee-detail/employee-detail.component';
-import {EmployeeUpdateFormComponent} from './views/modules/employee/employee-update-form/employee-update-form.component';
+import {GuestTableComponent} from './views/modules/guest/guest-table/guest-table.component';
+import {GuestFormComponent} from './views/modules/guest/guest-form/guest-form.component';
+import {GuestDetailComponent} from './views/modules/guest/guest-detail/guest-detail.component';
+import {GuestUpdateFormComponent} from './views/modules/guest/guest-update-form/guest-update-form.component';
 import {ClientTableComponent} from './views/modules/client/client-table/client-table.component';
 import {ClientFormComponent} from './views/modules/client/client-form/client-form.component';
 import {ClientDetailComponent} from './views/modules/client/client-detail/client-detail.component';
@@ -74,10 +74,10 @@ const routes: Routes = [
       {path: 'roles/:id', component: RoleDetailComponent},
       {path: 'roles/edit/:id', component: RoleUpdateFormComponent},
 
-      {path: 'employees', component: EmployeeTableComponent},
-      {path: 'employees/add', component: EmployeeFormComponent},
-      {path: 'employees/:id', component: EmployeeDetailComponent},
-      {path: 'employees/edit/:id', component: EmployeeUpdateFormComponent},
+      {path: 'employees', component: GuestTableComponent},
+      {path: 'employees/add', component: GuestFormComponent},
+      {path: 'employees/:id', component: GuestDetailComponent},
+      {path: 'employees/edit/:id', component: GuestUpdateFormComponent},
 
       {path: 'clients', component: ClientTableComponent},
       {path: 'clients/add', component: ClientFormComponent},

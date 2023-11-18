@@ -5,7 +5,7 @@ import {Usecase} from '../entities/usecase';
 import {ResourceLink} from '../shared/resource-link';
 import {PageRequest} from '../shared/page-request';
 import {User, UserDataPage} from '../entities/user';
-import {Employee} from '../entities/employee';
+import {Guest} from '../entities/guest';
 
 @Injectable({
   providedIn: 'root'
@@ -71,14 +71,14 @@ export class UserService {
     return await this.http.get<any>(ApiManager.getURL(`users/${id}/photo`)).toPromise();
   }
 
-  async getAllUserEmployees(): Promise<Employee[]>{
-    const employees = await this.http.get<Employee[]>(ApiManager.getURL('users/employees')).toPromise();
-    return  employees.map((employee) => Object.assign(new Employee(), employee));
+  async getAllUserGuests(): Promise<Guest[]>{
+    const guests = await this.http.get<Guest[]>(ApiManager.getURL('users/guests')).toPromise();
+    return  guests.map((guest) => Object.assign(new Guest(), guest));
   }
 
-  async getAllNonUserEmployees(): Promise<Employee[]>{
-    const employees = await this.http.get<Employee[]>(ApiManager.getURL('users/nonuser/employees')).toPromise();
-    return  employees.map((employee) => Object.assign(new Employee(), employee));
+  async getAllNonUserGuests(): Promise<Guest[]>{
+    const guests = await this.http.get<Guest[]>(ApiManager.getURL('users/nonuser/guests')).toPromise();
+    return  guests.map((guest) => Object.assign(new Guest(), guest));
   }
 
 }

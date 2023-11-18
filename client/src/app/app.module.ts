@@ -62,10 +62,10 @@ import { DualListboxComponent } from './shared/ui-components/dual-listbox/dual-l
 import {FileChooserComponent} from './shared/ui-components/file-chooser/file-chooser.component';
 import { ChangePhotoComponent } from './views/modules/user/change-photo/change-photo.component';
 import { MyAllNotificationComponent } from './views/modules/user/my-all-notification/my-all-notification.component';
-import {EmployeeTableComponent} from './views/modules/employee/employee-table/employee-table.component';
-import {EmployeeFormComponent} from './views/modules/employee/employee-form/employee-form.component';
-import {EmployeeDetailComponent} from './views/modules/employee/employee-detail/employee-detail.component';
-import {EmployeeUpdateFormComponent} from './views/modules/employee/employee-update-form/employee-update-form.component';
+import {GuestTableComponent} from './views/modules/guest/guest-table/guest-table.component';
+import {GuestFormComponent} from './views/modules/guest/guest-form/guest-form.component';
+import {GuestDetailComponent} from './views/modules/guest/guest-detail/guest-detail.component';
+import {GuestUpdateFormComponent} from './views/modules/guest/guest-update-form/guest-update-form.component';
 import { ClientFormComponent } from './views/modules/client/client-form/client-form.component';
 import { ClientDetailComponent } from './views/modules/client/client-detail/client-detail.component';
 import { ClientTableComponent } from './views/modules/client/client-table/client-table.component';
@@ -141,10 +141,10 @@ import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-
         DualListboxComponent,
         ChangePhotoComponent,
         MyAllNotificationComponent,
-        EmployeeTableComponent,
-        EmployeeFormComponent,
-        EmployeeDetailComponent,
-        EmployeeUpdateFormComponent,
+        GuestTableComponent,
+        GuestFormComponent,
+        GuestDetailComponent,
+        GuestUpdateFormComponent,
         ClientFormComponent,
         ClientDetailComponent,
         ClientTableComponent,

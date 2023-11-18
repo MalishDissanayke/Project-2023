@@ -7,15 +7,15 @@
 
         <div class="form-group">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Employee</mat-label>
-              <mat-select formControlName="employee" required>
-                <mat-option *ngFor="let employee of employees" [value]="employee.id">
-                  {{employee.code + '-' + employee.nametitle.name + ' ' + employee.callingname}}
+              <mat-label>Guest</mat-label>
+              <mat-select formControlName="guest" required>
+                <mat-option *ngFor="let guest of guests" [value]="guest.id">
+                  {{guest.code + '-' + guest.nametitle.name + ' ' + guest.callingname}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="employeeField.invalid">
-                <span *ngIf="employeeField.errors.required">Employee is required</span>
-                <span *ngIf="employeeField.errors.server">{{employeeField.errors.server.join(', ')}}</span>
+              <mat-error *ngIf="guestField.invalid">
+                <span *ngIf="guestField.errors.required">Guest is required</span>
+                <span *ngIf="guestField.errors.server">{{guestField.errors.server.join(', ')}}</span>
               </mat-error>
             </mat-form-field>
         </div>

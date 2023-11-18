@@ -10,11 +10,11 @@ export abstract class UsecaseList {
   public static readonly ADD_ROLE = 9;
   public static readonly UPDATE_ROLE = 10;
   public static readonly DELETE_ROLE = 11;
-  public static readonly SHOW_ALL_EMPLOYEES = 12;
-  public static readonly SHOW_EMPLOYEE_DETAILS = 13;
-  public static readonly ADD_EMPLOYEE = 14;
-  public static readonly UPDATE_EMPLOYEE = 15;
-  public static readonly DELETE_EMPLOYEE = 16;
+  public static readonly SHOW_ALL_GUESTS = 12;
+  public static readonly SHOW_GUEST_DETAILS = 13;
+  public static readonly ADD_GUEST = 14;
+  public static readonly UPDATE_GUEST = 15;
+  public static readonly DELETE_GUEST = 16;
   public static readonly SHOW_ALL_CLIENTS = 17;
   public static readonly SHOW_CLIENT_DETAILS = 18;
   public static readonly ADD_CLIENT = 19;

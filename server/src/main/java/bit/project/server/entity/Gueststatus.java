@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Nametitle{
+public class Gueststatus {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
@@ -26,11 +26,11 @@ public class Nametitle{
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "nametitle")
-    private List<Guest> nametitleGuestList;
+    @OneToMany(mappedBy = "gueststatus")
+    private List<Guest> gueststatusGuestList;
 
 
-    public Nametitle(Integer id){
+    public Gueststatus(Integer id){
         this.id = id;
     }
 

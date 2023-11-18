@@ -126,7 +126,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     const roleLink = new LinkItem('Role Management', '', 'assignment_ind');
     const clientLink = new LinkItem('Client Management', '', 'supervised_user_circle');
     const supplierLink = new LinkItem('Supplier Management', '', 'local_shipping');
-    const employeeLink = new LinkItem('Employee Management', '/', 'trip_origin');
+    const guestLink = new LinkItem('Guest Management', '/', 'trip_origin');
     const purchaseLink = new LinkItem('Purchase Management', '/', 'shopping_cart');
     const materialLink = new LinkItem('Material Management', '/', 'store');
     const porderLink = new LinkItem('Purchase Order Management', '/', 'queue');
@@ -150,13 +150,13 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     addRoleLink.addUsecaseId(UsecaseList.ADD_ROLE);
     roleLink.children.push(addRoleLink);
 
-    const addNewEmployeeLink = new LinkItem('Add New Employee', 'employees/add', 'add');
-    addNewEmployeeLink.addUsecaseId(UsecaseList.ADD_EMPLOYEE);
-    employeeLink.children.push(addNewEmployeeLink);
+    const addNewGuestLink = new LinkItem('Add New Guest', 'guests/add', 'add');
+    addNewGuestLink.addUsecaseId(UsecaseList.ADD_GUEST);
+    guestLink.children.push(addNewGuestLink);
 
-    const showAllEmployeeLink = new LinkItem('Show All Employee', 'employees', 'list');
-    showAllEmployeeLink.addUsecaseId(UsecaseList.SHOW_ALL_EMPLOYEES);
-    employeeLink.children.push(showAllEmployeeLink);
+    const showAllGuestLink = new LinkItem('Show All Guest', 'guests', 'list');
+    showAllGuestLink.addUsecaseId(UsecaseList.SHOW_ALL_GUESTS);
+    guestLink.children.push(showAllGuestLink);
 
     const addNewClientLink = new LinkItem('Add New Client', 'clients/add', 'add');
     addNewClientLink.addUsecaseId(UsecaseList.ADD_CLIENT);
@@ -228,7 +228,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     this.linkItems.push(dashboardLink);
     this.linkItems.push(userLink);
     this.linkItems.push(roleLink);
-    this.linkItems.push(employeeLink);
+    this.linkItems.push(guestLink);
     this.linkItems.push(clientLink);
     this.linkItems.push(supplierLink);
     this.linkItems.push(materialLink);

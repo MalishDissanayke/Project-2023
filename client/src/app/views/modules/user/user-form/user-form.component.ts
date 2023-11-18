@@ -14,7 +14,7 @@ import {Role} from '../../../../entities/role';
 import {RoleService} from '../../../../services/role.service';
 import {PageRequest} from '../../../../shared/page-request';
 import {PasswordGenerator} from '../../../../shared/password-generator';
-import {Employee} from '../../../../entities/employee';
+import {Guest} from '../../../../entities/guest';
 
 @Component({
   selector: 'app-user-form',
@@ -25,12 +25,12 @@ export class UserFormComponent extends AbstractComponent implements OnInit {
   passwordHide = true;
   passwordConfirmHide = true;
 
-  employees: Employee[] = [];
+  guests: Guest[] = [];
 
   roles: Role[] = [];
 
   form = new FormGroup({
-    employee: new FormControl(),
+    guest: new FormControl(),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
@@ -44,8 +44,8 @@ export class UserFormComponent extends AbstractComponent implements OnInit {
     roles: new FormControl()
   }, [mustMatch('password', 'passwordConfirm')]);
 
-  get employeeField(): FormControl{
-    return this.form.controls.employee as FormControl;
+  get guestField(): FormControl{
+    return this.form.controls.guest as FormControl;
   }
 
   get passwordField(): FormControl{
@@ -89,8 +89,8 @@ export class UserFormComponent extends AbstractComponent implements OnInit {
     this.updatePrivileges();
     if (!this.privilege.add) { return; }
 
-    this.userService.getAllNonUserEmployees().then((data) => {
-      this.employees = data;
+    this.userService.getAllNonUserGuests().then((data) => {
+      this.guests = data;
     }).catch((e) => {
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
@@ -115,7 +115,7 @@ export class UserFormComponent extends AbstractComponent implements OnInit {
     user.password = this.passwordField.value;
     user.roleList = this.rolesField.value;
 
-    user.employee = this.employeeField.value;
+    user.guest = this.guestField.value;
 
     const photoIds = this.photoField.value;
     if (photoIds !== null && photoIds !== []){
@@ -133,8 +133,8 @@ export class UserFormComponent extends AbstractComponent implements OnInit {
         case 403: this.snackBar.open(e.error.message, null, {duration: 2000}); break;
         case 400:
           const msg = JSON.parse(e.error.message);
-          if (msg.employee || msg.password){
-            if (msg.employee) { this.employeeField.setErrors({server: msg.employee}); }
+          if (msg.guest || msg.password){
+            if (msg.guest) { this.guestField.setErrors({server: msg.guest}); }
             if (msg.password) { this.passwordField.setErrors({server: msg.password}); }
             break;
           }

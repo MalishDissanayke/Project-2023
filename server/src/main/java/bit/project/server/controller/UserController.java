@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import bit.project.server.dao.EmployeeDao;
-import bit.project.server.entity.Employee;
+import bit.project.server.dao.GuestDao;
+import bit.project.server.entity.Guest;
 
 @CrossOrigin
 @RestController
@@ -44,7 +44,7 @@ public class UserController {
     @Autowired private UsecaseDao usecaseDao;
     @Autowired private AccessControlManager accessControlManager;
     @Autowired private FileDao fileDao;
-    @Autowired private EmployeeDao employeeDao;
+    @Autowired private GuestDao guestDao;
 
     @GetMapping
     public Page<User> getAll(PageQuery pageQuery, HttpServletRequest request) {
@@ -67,8 +67,8 @@ public class UserController {
 
             if(displayName != null){
                 String dname = "";
-                Employee employee = user.getEmployee();
-                if(employee != null) dname = employee.getCode() + "-" + employee.getNametitle().getName() + " " + employee.getCallingname();
+                Guest guest = user.getGuest();
+                if(guest != null) dname = guest.getCode() + "-" + guest.getNametitle().getName() + " " + guest.getCallingname();
                 if(!dname.toLowerCase().contains(displayName.toLowerCase())) return false;
             }
 
@@ -101,16 +101,16 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/employees")
-    public List<Employee> getAllUserEmployees(HttpServletRequest request){
-        accessControlManager.authorize(request, "No privilege to get user employees",  UsecaseList.ADD_USER);
-        return userDao.findAllUserEmployees();
+    @GetMapping("/guests")
+    public List<Guest> getAllUserGuests(HttpServletRequest request){
+        accessControlManager.authorize(request, "No privilege to get user guests",  UsecaseList.ADD_USER);
+        return userDao.findAllUserGuests();
     }
 
-    @GetMapping("/nonuser/employees")
-    public List<Employee> getAllNonUserEmployees(HttpServletRequest request){
-        accessControlManager.authorize(request, "No privilege to get non user employees",  UsecaseList.ADD_USER);
-        return userDao.findAllNonUserEmployees();
+    @GetMapping("/nonuser/guests")
+    public List<Guest> getAllNonUserGuests(HttpServletRequest request){
+        accessControlManager.authorize(request, "No privilege to get non user guests",  UsecaseList.ADD_USER);
+        return userDao.findAllNonUserGuests();
     }
 
     @PostMapping
@@ -128,18 +128,18 @@ public class UserController {
         EntityValidator.validate(user);
         ValidationErrorBag errorBag = new ValidationErrorBag();
 
-        if(user.getEmployee()!=null){
-            Optional<Employee> optionalEmployee = employeeDao.findById(user.getEmployee().getId());
-            if(optionalEmployee.isEmpty()){
-                errorBag.add("employee","The selected employee is not a valid employee");
+        if(user.getGuest()!=null){
+            Optional<Guest> optionalGuest = guestDao.findById(user.getGuest().getId());
+            if(optionalGuest.isEmpty()){
+                errorBag.add("guest","The selected guest is not a valid guest");
             }else{
-                Employee employee = optionalEmployee.get();
-                user.setUsername(employee.getCode());
-                User userByEmployee = userDao.findByEmployee(employee);
-                if(userByEmployee!=null) errorBag.add("employee","The selected employee is already a user");
+                Guest guest = optionalGuest.get();
+                user.setUsername(guest.getCode());
+                User userByGuest = userDao.findByGuest(guest);
+                if(userByGuest!=null) errorBag.add("guest","The selected guest is already a user");
             }
         }else {
-            errorBag.add("employee","Employee is required");
+            errorBag.add("guest","Guest is required");
         }
 
         if(!accessControlManager.isStrongPassword(textPassword)) errorBag.add("password","Please enter a strong password like P@ssw0rd");
@@ -160,7 +160,7 @@ public class UserController {
             throw new NoPrivilegeException("No privilege to update super admin data");
         }
 
-        user.setEmployee(oldUser.getEmployee());
+        user.setGuest(oldUser.getGuest());
         user.setId(id);
         user.setPassword(oldUser.getPassword());
         user.setUsername(oldUser.getUsername());
