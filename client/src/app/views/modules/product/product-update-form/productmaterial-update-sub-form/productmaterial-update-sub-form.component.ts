@@ -5,28 +5,28 @@ import {ApiManager} from '../../../../../shared/api-manager';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {PageRequest} from '../../../../../shared/page-request';
 import {AbstractSubFormComponent} from '../../../../../shared/ui-components/abstract-sub-form/abstract-sub-form.component';
-import {Pordermaterial} from "../../../../../entities/pordermaterial";
+import {Productmaterial} from '../../../../../entities/productmaterial';
 import { Material } from 'src/app/entities/material';
-import {MaterialService} from "../../../../../services/material.service";
+import {MaterialService} from '../../../../../services/material.service';
 
 
 @Component({
-  selector: 'app-pordermaterial-update-sub-form',
-  templateUrl: './pordermaterial-update-sub-form.component.html',
-  styleUrls: ['./pordermaterial-update-sub-form.component.scss'],
+  selector: 'app-productmaterial-update-sub-form',
+  templateUrl: './productmaterial-update-sub-form.component.html',
+  styleUrls: ['./productmaterial-update-sub-form.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PordermaterialUpdateSubFormComponent),
+      useExisting: forwardRef(() => ProductmaterialUpdateSubFormComponent),
       multi: true
     }, {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => PordermaterialUpdateSubFormComponent),
+      useExisting: forwardRef(() => ProductmaterialUpdateSubFormComponent),
       multi: true,
     }
   ]
 })
-export class PordermaterialUpdateSubFormComponent extends AbstractSubFormComponent<Pordermaterial> implements OnInit{
+export class ProductmaterialUpdateSubFormComponent extends AbstractSubFormComponent<Productmaterial> implements OnInit{
 
   materials: Material[] = [];
 
@@ -94,7 +94,7 @@ export class PordermaterialUpdateSubFormComponent extends AbstractSubFormCompone
     this.qtyField.clearValidators();
   }
 
-  fillForm(dataItem: Pordermaterial): void {
+  fillForm(dataItem: Productmaterial): void {
     this.idField.patchValue(dataItem.id);
     this.materialField.patchValue(dataItem.material.id);
     this.qtyField.patchValue(dataItem.qty);
@@ -106,22 +106,22 @@ export class PordermaterialUpdateSubFormComponent extends AbstractSubFormCompone
   }
 
   // Operations related functions
-  getDeleteConfirmMessage(pordermaterial: Pordermaterial): string {
-    return 'Are you sure to remove \u201C ' + pordermaterial.material.name + ' \u201D from allowance list ?';
+  getDeleteConfirmMessage(productmaterial: Productmaterial): string {
+    return 'Are you sure to remove \u201C ' + productmaterial.material.name + ' \u201D from allowance list ?';
   }
 
-  getUpdateConfirmMessage(pordermaterial: Pordermaterial): string {
+  getUpdateConfirmMessage(productmaterial: Productmaterial): string {
     if (this.isFormEmpty){
-      return 'Are you sure to update \u201C\u00A0' + pordermaterial.material.name + '\u00A0\u201D\u00A0?';
+      return 'Are you sure to update \u201C\u00A0' + productmaterial.material.name + '\u00A0\u201D\u00A0?';
     }
 
-    return 'Are you sure to update \u201C\u00A0' + pordermaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
+    return 'Are you sure to update \u201C\u00A0' + productmaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
   }
 
   addData(): void{
     if (this.form.invalid) { return; }
 
-    const dataItem: Pordermaterial = new Pordermaterial();
+    const dataItem: Productmaterial = new Productmaterial();
     dataItem.id = this.idField.value;
 
     for (const material of this.materials){

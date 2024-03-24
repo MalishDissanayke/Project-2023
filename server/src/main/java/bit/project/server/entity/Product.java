@@ -11,65 +11,65 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private String code;
 
-    private LocalDateTime tocreation;
+    private LocalDate doordered;
 
+    private LocalDate dorequired;
 
-
+    private LocalDate doreceived;
 
     @Lob
     private String description;
 
-    private String name;
+    private LocalDateTime tocreation;
 
-    private Integer qty;
-
-    private String photo;
 
     @ManyToOne
-    @JsonIgnoreProperties({"creator", "status", "tocreation", "rolelist"})
-    private User creator;
+    private Supplier supplier;
+
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Productmaterial> productmaterialList;
 
     @ManyToOne
     private Productstatus productstatus;
 
     @ManyToOne
-    private Producttype producttype;
+    private Productstatus producttype;
 
     @ManyToOne
-    private Productcategory productcategory;
+    private Productstatus productcategory;
+
+    @ManyToOne
+    @JsonIgnoreProperties({"creator","status","tocreation","roleList"})
+    private User creator;
+
 
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "product")
-//    private List<Prorder> prorderList;
+//    private List<Purchase> productPurchaseList;
 
 
-    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Productmaterial> productmaterialList;
-    
-
-    public Product(Integer id) {
+    public Product(Integer id){
         this.id = id;
     }
 
-    public Product(Integer id, String code, String name) {
+    public Product(Integer id, String code, LocalDate doordered, LocalDate dorequired, Supplier supplier){
         this.id = id;
         this.code = code;
-        this.name = name;
+        this.doordered = doordered;
+        this.dorequired = dorequired;
+        this.supplier = supplier;
     }
-
-
 
 }
