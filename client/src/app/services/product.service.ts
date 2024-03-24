@@ -4,6 +4,7 @@ import {ApiManager} from '../shared/api-manager';
 import {PageRequest} from '../shared/page-request';
 import {ResourceLink} from '../shared/resource-link';
 import {Product, ProductDataPage} from '../entities/product';
+import {Material} from '../entities/material';
 
 @Injectable({
   providedIn: 'root'
@@ -50,4 +51,9 @@ export class ProductService {
     return this.http.put<ResourceLink>(ApiManager.getURL(`products/${id}`), product).toPromise();
   }
 
+
+  async getAllMaterials(): Promise<Material[]> {
+    const materials = await this.http.get<Material[]>(ApiManager.getURL('materials')).toPromise();
+    return materials.map((material) => Object.assign(new Material(), material));
+  }
 }
