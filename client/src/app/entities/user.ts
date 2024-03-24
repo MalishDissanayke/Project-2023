@@ -1,6 +1,6 @@
 import {Role} from './role';
 import {DataPage} from '../shared/data-page';
-import {Guest} from './guest';
+import {Employee} from './employee';
 
 export class User {
   id: number;
@@ -12,10 +12,10 @@ export class User {
   creator: User;
   photo: string;
 
-  guest: Guest;
+  employee: Employee;
 
   static getDisplayName(user: User): string{
-    if (user.guest) { return user.guest.code + '-' + user.guest.nametitle.name + ' ' + user.guest.callingname; }
+    if (user.employee) { return user.employee.code + '-' + user.employee.nametitle.name + ' ' + user.employee.callingname; }
     return user.username;
   }
 }

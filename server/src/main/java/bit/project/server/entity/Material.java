@@ -50,6 +50,9 @@ public class Material {
     @JsonIgnoreProperties({"creator","status","tocreation","roleList"})
     private User creator;
 
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "material")
+//    private List<Allocatedmaterial> allocatedmaterialList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "material")
@@ -60,6 +63,10 @@ public class Material {
     @JsonIgnoreProperties({"porder","material"})
     private List<Pordermaterial> pordermaterialList;
 
+    @OneToMany(mappedBy = "material")
+    @JsonIgnoreProperties({"product","material"})
+    private List<Productmaterial> productmaterialList;
+    
     @JsonIgnore
     @OneToMany(mappedBy = "material")
     private List<Purchasematerial> purchasematerialList;
@@ -68,6 +75,8 @@ public class Material {
     @ManyToMany(mappedBy = "materialList")
     @JsonIgnoreProperties({"suppliertype","supplierstatus","creator","supplierPorderList","supplierPurchaseList","supplierSupplierreturnList","materialList"})
     private List<Supplier> supplierList;
+
+
 
     public Material(Integer id){
         this.id = id;

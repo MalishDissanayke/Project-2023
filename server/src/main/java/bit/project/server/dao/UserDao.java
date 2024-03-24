@@ -8,24 +8,24 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
-import bit.project.server.entity.Guest;
+import bit.project.server.entity.Employee;
 
 @RepositoryRestResource(exported=false)
 public interface UserDao extends JpaRepository<User, Integer>, CriteriaQuerySupplement<User> {
-    @Query("select new User(u.id, u.username, u.guest) from User u")
+    @Query("select new User(u.id, u.username, u.employee) from User u")
     Page<User> findAllBasic(PageRequest pageRequest);
 
-    @Query("select u from User u where  u.guest is null")
+    @Query("select u from User u where  u.employee is null")
     User getSuperUser();
 
-    User findByGuest(Guest guest);
+    User findByEmployee(Employee employee);
     User findByUsername(String username);
 
-    @Query("select new Guest(em.id, em.code, em.nametitle, em.callingname, em.photo) from Guest em where EXISTS (select u from User u where u.guest.id = em.id)")
-    List<Guest> findAllUserGuests();
+    @Query("select new Employee(em.id, em.code, em.nametitle, em.callingname, em.photo) from Employee em where EXISTS (select u from User u where u.employee.id = em.id)")
+    List<Employee> findAllUserEmployees();
 
-    @Query("select new Guest(em.id, em.code, em.nametitle, em.callingname, em.photo) from Guest em where NOT EXISTS (select u from User u where u.guest.id = em.id)")
-    List<Guest> findAllNonUserGuests();
+    @Query("select new Employee(em.id, em.code, em.nametitle, em.callingname, em.photo) from Employee em where NOT EXISTS (select u from User u where u.employee.id = em.id)")
+    List<Employee> findAllNonUserEmployees();
 
 
 }

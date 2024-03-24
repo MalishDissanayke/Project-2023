@@ -62,14 +62,14 @@ import { DualListboxComponent } from './shared/ui-components/dual-listbox/dual-l
 import {FileChooserComponent} from './shared/ui-components/file-chooser/file-chooser.component';
 import { ChangePhotoComponent } from './views/modules/user/change-photo/change-photo.component';
 import { MyAllNotificationComponent } from './views/modules/user/my-all-notification/my-all-notification.component';
-import {GuestTableComponent} from './views/modules/guest/guest-table/guest-table.component';
-import {GuestFormComponent} from './views/modules/guest/guest-form/guest-form.component';
-import {GuestDetailComponent} from './views/modules/guest/guest-detail/guest-detail.component';
-import {GuestUpdateFormComponent} from './views/modules/guest/guest-update-form/guest-update-form.component';
-import { ClientFormComponent } from './views/modules/client/client-form/client-form.component';
-import { ClientDetailComponent } from './views/modules/client/client-detail/client-detail.component';
-import { ClientTableComponent } from './views/modules/client/client-table/client-table.component';
-import { ClientUpdateFormComponent } from './views/modules/client/client-update-form/client-update-form.component';
+import {EmployeeTableComponent} from './views/modules/employee/employee-table/employee-table.component';
+import {EmployeeFormComponent} from './views/modules/employee/employee-form/employee-form.component';
+import {EmployeeDetailComponent} from './views/modules/employee/employee-detail/employee-detail.component';
+import {EmployeeUpdateFormComponent} from './views/modules/employee/employee-update-form/employee-update-form.component';
+// import { ClientFormComponent } from './views/modules/client/client-form/client-form.component';
+// import { ClientDetailComponent } from './views/modules/client/client-detail/client-detail.component';
+// import { ClientTableComponent } from './views/modules/client/client-table/client-table.component';
+// import { ClientUpdateFormComponent } from './views/modules/client/client-update-form/client-update-form.component';
 import { SupplierFormComponent } from './views/modules/supplier/supplier-form/supplier-form.component';
 import { SupplierTableComponent } from './views/modules/supplier/supplier-table/supplier-table.component';
 import { SupplierDetailComponent } from './views/modules/supplier/supplier-detail/supplier-detail.component';
@@ -96,16 +96,19 @@ import {SupplierpaymentTableComponent} from './views/modules/supplierpayment/sup
 import {SupplierpaymentFormComponent} from './views/modules/supplierpayment/supplierpayment-form/supplierpayment-form.component';
 import {SupplierpaymentDetailComponent} from './views/modules/supplierpayment/supplierpayment-detail/supplierpayment-detail.component';
 import {SupplierpaymentUpdateFormComponent} from './views/modules/supplierpayment/supplierpayment-update-form/supplierpayment-update-form.component';
-import {
-  PurchaseUpdateFormComponent
-} from './views/modules/purchase/purchase-update-form/purchase-update-form.component';
-import {PurchaseTableComponent} from "./views/modules/purchase/purchase-table/purchase-table.component";
-import {PurchaseFormComponent} from "./views/modules/purchase/purchase-form/purchase-form.component";
-import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/purchase-detail.component";
-import { BranchDetailComponent } from './views/modules/branch/branch-detail/branch-detail.component';
-import { BranchFormComponent } from './views/modules/branch/branch-form/branch-form.component';
-import { BranchTableComponent } from './views/modules/branch/branch-table/branch-table.component';
-import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-form/branch-update-form.component';
+import {PurchaseUpdateFormComponent} from './views/modules/purchase/purchase-update-form/purchase-update-form.component';
+import {PurchaseTableComponent} from './views/modules/purchase/purchase-table/purchase-table.component';
+import {PurchaseFormComponent} from './views/modules/purchase/purchase-form/purchase-form.component';
+import {PurchaseDetailComponent} from './views/modules/purchase/purchase-detail/purchase-detail.component';
+// import { BranchDetailComponent } from './views/modules/branch/branch-detail/branch-detail.component';
+// import { BranchFormComponent } from './views/modules/branch/branch-form/branch-form.component';
+// import { BranchTableComponent } from './views/modules/branch/branch-table/branch-table.component';
+// import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-form/branch-update-form.component';
+import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
+import {ProductTableComponent} from './views/modules/product/product-table/product-table.component';
+import {ProductFormComponent} from './views/modules/product/product-form/product-form.component';
+import {ProductDetailComponent} from './views/modules/product/product-detail/product-detail.component';
+import {ProductmaterialSubFormComponent} from './views/modules/product/product-form/productmaterial-sub-form/productmaterial-sub-form.component';
 
 
 
@@ -141,14 +144,14 @@ import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-
         DualListboxComponent,
         ChangePhotoComponent,
         MyAllNotificationComponent,
-        GuestTableComponent,
-        GuestFormComponent,
-        GuestDetailComponent,
-        GuestUpdateFormComponent,
-        ClientFormComponent,
-        ClientDetailComponent,
-        ClientTableComponent,
-        ClientUpdateFormComponent,
+        EmployeeTableComponent,
+        EmployeeFormComponent,
+        EmployeeDetailComponent,
+        EmployeeUpdateFormComponent,
+        // ClientFormComponent,
+        // ClientDetailComponent,
+        // ClientTableComponent,
+        // ClientUpdateFormComponent,
         SupplierFormComponent,
         SupplierTableComponent,
         SupplierDetailComponent,
@@ -181,10 +184,20 @@ import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-
       PurchaseFormComponent,
       PurchaseDetailComponent,
       MaterialdisposalmaterialSubFormComponent,
-      BranchDetailComponent,
-      BranchFormComponent,
-      BranchTableComponent,
-      BranchUpdateFormComponent,
+
+      // BranchDetailComponent,
+      // BranchFormComponent,
+      // BranchTableComponent,
+      // BranchUpdateFormComponent,
+
+      // ProductmaterialUpdateSubFormComponent,
+      ProductmaterialSubFormComponent,
+      ProductTableComponent,
+      ProductFormComponent,
+      ProductDetailComponent,
+      ProductUpdateFormComponent,
+      // ProductmaterialUpdateSubFormComponent,
+      ProductmaterialSubFormComponent,
 
     ],
   imports: [

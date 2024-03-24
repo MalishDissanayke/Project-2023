@@ -27,7 +27,7 @@ public class Gender{
 
     @JsonIgnore
     @OneToMany(mappedBy = "gender")
-    private List<Guest> genderGuestList;
+    private List<Employee> genderEmployeeList;
 
 
     public Gender(Integer id){

@@ -14,11 +14,11 @@ public enum UsecaseList{
     @SystemModule("Role") ADD_ROLE(9),
     @SystemModule("Role") UPDATE_ROLE(10),
     @SystemModule("Role") DELETE_ROLE(11),
-    @SystemModule("Guest") SHOW_ALL_GUESTS(12),
-    @SystemModule("Guest") SHOW_GUEST_DETAILS(13),
-    @SystemModule("Guest") ADD_GUEST(14),
-    @SystemModule("Guest") UPDATE_GUEST(15),
-    @SystemModule("Guest") DELETE_GUEST(16),
+    @SystemModule("Employee") SHOW_ALL_EMPLOYEES(12),
+    @SystemModule("Employee") SHOW_EMPLOYEE_DETAILS(13),
+    @SystemModule("Employee") ADD_EMPLOYEE(14),
+    @SystemModule("Employee") UPDATE_EMPLOYEE(15),
+    @SystemModule("Employee") DELETE_EMPLOYEE(16),
     @SystemModule("Client") SHOW_ALL_CLIENTS(17),
     @SystemModule("Client") SHOW_CLIENT_DETAILS(18),
     @SystemModule("Client") ADD_CLIENT(19),
@@ -64,11 +64,11 @@ public enum UsecaseList{
     @SystemModule("Material") ADD_MATERIAL(59),
     @SystemModule("Material") UPDATE_MATERIAL(60),
     @SystemModule("Material") DELETE_MATERIAL(61),
-    @SystemModule("Branch") SHOW_ALL_BRANCHES(62),
-    @SystemModule("Branch") SHOW_BRANCH_DETAILS(63),
-    @SystemModule("Branch") ADD_BRANCH(64),
-    @SystemModule("Branch") UPDATE_BRANCH(65),
-    @SystemModule("Branch") DELETE_BRANCH(66);
+    @SystemModule("Product") SHOW_ALL_PRODUCTS(62),
+    @SystemModule("Product") SHOW_PRODUCT_DETAILS(63),
+    @SystemModule("Product") ADD_PRODUCT(64),
+    @SystemModule("Product") UPDATE_PRODUCT(65),
+    @SystemModule("Product") DELETE_PRODUCT(66);
 
     public final int value;
 

@@ -27,7 +27,7 @@ public class Nametitle{
 
     @JsonIgnore
     @OneToMany(mappedBy = "nametitle")
-    private List<Guest> nametitleGuestList;
+    private List<Employee> nametitleEmployeeList;
 
 
     public Nametitle(Integer id){

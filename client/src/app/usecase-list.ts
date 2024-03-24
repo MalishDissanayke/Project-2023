@@ -10,11 +10,11 @@ export abstract class UsecaseList {
   public static readonly ADD_ROLE = 9;
   public static readonly UPDATE_ROLE = 10;
   public static readonly DELETE_ROLE = 11;
-  public static readonly SHOW_ALL_GUESTS = 12;
-  public static readonly SHOW_GUEST_DETAILS = 13;
-  public static readonly ADD_GUEST = 14;
-  public static readonly UPDATE_GUEST = 15;
-  public static readonly DELETE_GUEST = 16;
+  public static readonly SHOW_ALL_EMPLOYEES = 12;
+  public static readonly SHOW_EMPLOYEE_DETAILS = 13;
+  public static readonly ADD_EMPLOYEE = 14;
+  public static readonly UPDATE_EMPLOYEE = 15;
+  public static readonly DELETE_EMPLOYEE = 16;
   public static readonly SHOW_ALL_CLIENTS = 17;
   public static readonly SHOW_CLIENT_DETAILS = 18;
   public static readonly ADD_CLIENT = 19;
@@ -61,9 +61,10 @@ export abstract class UsecaseList {
   public static readonly ADD_PURCHASE = 59;
   public static readonly UPDATE_PURCHASE = 60;
   public static readonly DELETE_PURCHASE = 61;
-  public static readonly SHOW_ALL_BRANCHES = 62;
-  public static readonly SHOW_BRANCH_DETAILS = 63;
-  public static readonly ADD_BRANCH = 64;
-  public static readonly UPDATE_BRANCH = 65;
-  public static readonly DELETE_BRANCH = 66;
+
+  public static readonly SHOW_ALL_PRODUCTS = 62;
+  public static readonly SHOW_PRODUCT_DETAILS = 63;
+  public static readonly ADD_PRODUCT = 64;
+  public static readonly UPDATE_PRODUCT = 65;
+  public static readonly DELETE_PRODUCT = 66;
 }

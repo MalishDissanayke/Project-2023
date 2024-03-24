@@ -16,14 +16,14 @@ import {ChangePasswordComponent} from './views/modules/user/change-password/chan
 import {ResetPasswordComponent} from './views/modules/user/reset-password/reset-password.component';
 import {ChangePhotoComponent} from './views/modules/user/change-photo/change-photo.component';
 import {MyAllNotificationComponent} from './views/modules/user/my-all-notification/my-all-notification.component';
-import {GuestTableComponent} from './views/modules/guest/guest-table/guest-table.component';
-import {GuestFormComponent} from './views/modules/guest/guest-form/guest-form.component';
-import {GuestDetailComponent} from './views/modules/guest/guest-detail/guest-detail.component';
-import {GuestUpdateFormComponent} from './views/modules/guest/guest-update-form/guest-update-form.component';
-import {ClientTableComponent} from './views/modules/client/client-table/client-table.component';
-import {ClientFormComponent} from './views/modules/client/client-form/client-form.component';
-import {ClientDetailComponent} from './views/modules/client/client-detail/client-detail.component';
-import {ClientUpdateFormComponent} from './views/modules/client/client-update-form/client-update-form.component';
+import {EmployeeTableComponent} from './views/modules/employee/employee-table/employee-table.component';
+import {EmployeeFormComponent} from './views/modules/employee/employee-form/employee-form.component';
+import {EmployeeDetailComponent} from './views/modules/employee/employee-detail/employee-detail.component';
+import {EmployeeUpdateFormComponent} from './views/modules/employee/employee-update-form/employee-update-form.component';
+// import {ClientTableComponent} from './views/modules/client/client-table/client-table.component';
+// import {ClientFormComponent} from './views/modules/client/client-form/client-form.component';
+// import {ClientDetailComponent} from './views/modules/client/client-detail/client-detail.component';
+// import {ClientUpdateFormComponent} from './views/modules/client/client-update-form/client-update-form.component';
 import {SupplierTableComponent} from './views/modules/supplier/supplier-table/supplier-table.component';
 import {SupplierFormComponent} from './views/modules/supplier/supplier-form/supplier-form.component';
 import {SupplierDetailComponent} from './views/modules/supplier/supplier-detail/supplier-detail.component';
@@ -48,10 +48,14 @@ import {MaterialTableComponent} from './views/modules/material/material-table/ma
 import {MaterialFormComponent} from './views/modules/material/material-form/material-form.component';
 import {MaterialDetailComponent} from './views/modules/material/material-detail/material-detail.component';
 import {MaterialUpdateFormComponent} from './views/modules/material/material-update-form/material-update-form.component';
-import {BranchTableComponent} from './views/modules/branch/branch-table/branch-table.component';
-import {BranchFormComponent} from './views/modules/branch/branch-form/branch-form.component';
-import {BranchDetailComponent} from './views/modules/branch/branch-detail/branch-detail.component';
-import {BranchUpdateFormComponent} from './views/modules/branch/branch-update-form/branch-update-form.component';
+// import {BranchTableComponent} from './views/modules/branch/branch-table/branch-table.component';
+// import {BranchFormComponent} from './views/modules/branch/branch-form/branch-form.component';
+// import {BranchDetailComponent} from './views/modules/branch/branch-detail/branch-detail.component';
+// import {BranchUpdateFormComponent} from './views/modules/branch/branch-update-form/branch-update-form.component';
+import {ProductTableComponent} from './views/modules/product/product-table/product-table.component';
+import {ProductFormComponent} from './views/modules/product/product-form/product-form.component';
+import {ProductDetailComponent} from './views/modules/product/product-detail/product-detail.component';
+import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -74,15 +78,15 @@ const routes: Routes = [
       {path: 'roles/:id', component: RoleDetailComponent},
       {path: 'roles/edit/:id', component: RoleUpdateFormComponent},
 
-      {path: 'employees', component: GuestTableComponent},
-      {path: 'employees/add', component: GuestFormComponent},
-      {path: 'employees/:id', component: GuestDetailComponent},
-      {path: 'employees/edit/:id', component: GuestUpdateFormComponent},
+      {path: 'employees', component: EmployeeTableComponent},
+      {path: 'employees/add', component: EmployeeFormComponent},
+      {path: 'employees/:id', component: EmployeeDetailComponent},
+      {path: 'employees/edit/:id', component: EmployeeUpdateFormComponent},
 
-      {path: 'clients', component: ClientTableComponent},
-      {path: 'clients/add', component: ClientFormComponent},
-      {path: 'clients/:id', component: ClientDetailComponent},
-      {path: 'clients/edit/:id', component: ClientUpdateFormComponent},
+      // {path: 'clients', component: ClientTableComponent},
+      // {path: 'clients/add', component: ClientFormComponent},
+      // {path: 'clients/:id', component: ClientDetailComponent},
+      // {path: 'clients/edit/:id', component: ClientUpdateFormComponent},
 
       {path: 'suppliers', component: SupplierTableComponent},
       {path: 'suppliers/add', component: SupplierFormComponent},
@@ -115,15 +119,17 @@ const routes: Routes = [
       {path: 'materials/:id', component: MaterialDetailComponent},
       {path: 'materials/edit/:id', component: MaterialUpdateFormComponent},
 
-      {path: 'suppliers', component: SupplierTableComponent},
-      {path: 'suppliers/add', component: SupplierFormComponent},
-      {path: 'suppliers/:id', component: SupplierDetailComponent},
-      {path: 'suppliers/edit/:id', component: SupplierUpdateFormComponent},
+      {path: 'products', component: ProductTableComponent},
+      {path: 'products/add', component: ProductFormComponent},
+      {path: 'products/:id', component: ProductDetailComponent},
+      {path: 'products/edit/:id', component: ProductUpdateFormComponent},
 
-      {path: 'branches', component: BranchTableComponent},
-      {path: 'branches/add', component: BranchFormComponent},
-      {path: 'branches/:id', component: BranchDetailComponent},
-      {path: 'branches/edit/:id', component: BranchUpdateFormComponent},
+
+
+      // {path: 'branches', component: BranchTableComponent},
+      // {path: 'branches/add', component: BranchFormComponent},
+      // {path: 'branches/:id', component: BranchDetailComponent},
+      // {path: 'branches/edit/:id', component: BranchUpdateFormComponent},
 
       {path: 'dashboard', component: DashboardComponent},
       {path: '', component: DashboardComponent},

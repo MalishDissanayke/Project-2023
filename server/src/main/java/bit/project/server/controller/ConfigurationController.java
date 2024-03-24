@@ -52,7 +52,7 @@ public class ConfigurationController {
     public ClientToken config(@RequestBody User user) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException, NoSuchMethodException, InstantiationException, InvocationTargetException{
         user.setTocreation(LocalDateTime.now());
         user.setStatus("Active");
-        user.setGuest(null);
+        user.setEmployee(null);
         user.setTolocked(null);
         user.setFailedattempts(0);
         user.setUsername("Administrator");

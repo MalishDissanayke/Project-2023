@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="sidenavOpen=!sidenavOpen">
       <mat-icon>menu</mat-icon>
     </button>
-    <img src="assets/logo.jpg" class="logo" style="width: 100px" height="50px">
+    <img src="assets/logo.jpg" class="logo">
     <span class="spacer"></span>
     <button (click)="setNotificationsAsRead()" mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
       <mat-icon [matBadgeHidden]="unreadNotificationCount == '0'" [matBadge]="unreadNotificationCount" matBadgeColor="warn">notifications</mat-icon>
@@ -62,7 +62,7 @@
   </mat-sidenav-container>
 
   <footer class="container-fluid d-flex">
-    <div class="d-inline-block">Reza Hygiene (Pvt) Ltd.</div>
+    <div class="d-inline-block">Copyright &copy; 2021 Ceyalac (Pvt) Ltd.. All rights reserved.</div>
     <span class="spacer"></span>
     <div class="d-inline-block">Version 1.0.0</div>
   </footer>

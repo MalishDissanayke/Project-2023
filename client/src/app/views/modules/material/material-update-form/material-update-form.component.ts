@@ -7,16 +7,16 @@ import {UsecaseList} from '../../../../usecase-list';
 import {ResourceLink} from '../../../../shared/resource-link';
 import {AbstractComponent} from '../../../../shared/abstract-component';
 import {PageRequest} from '../../../../shared/page-request';
-import {Material} from "../../../../entities/material";
-import {Materialtype} from "../../../../entities/materialtype";
-import {Brand} from "../../../../entities/brand";
-import {Unit} from "../../../../entities/unit";
-import {Materialstatus} from "../../../../entities/materialstatus";
-import {MaterialtypeService} from "../../../../services/materialtype.service";
-import {BrandService} from "../../../../services/brand.service";
-import {UnitService} from "../../../../services/unit.service";
-import {MaterialstatusService} from "../../../../services/materialstatus.service";
-import {MaterialService} from "../../../../services/material.service";
+import {Material} from '../../../../entities/material';
+import {Materialtype} from '../../../../entities/materialtype';
+import {Brand} from '../../../../entities/brand';
+import {Unit} from '../../../../entities/unit';
+import {Materialstatus} from '../../../../entities/materialstatus';
+import {MaterialtypeService} from '../../../../services/materialtype.service';
+import {BrandService} from '../../../../services/brand.service';
+import {UnitService} from '../../../../services/unit.service';
+import {MaterialstatusService} from '../../../../services/materialstatus.service';
+import {MaterialService} from '../../../../services/material.service';
 
 
 @Component({

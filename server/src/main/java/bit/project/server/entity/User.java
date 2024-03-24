@@ -50,8 +50,8 @@ public class User{
 
 
     @ManyToOne
-    @JsonIgnoreProperties({"creator","tocreation","civilstatus","fullname","dobirth","gender","nic","mobile","land","email","address","designation","dorecruit","gueststatus","description"})
-    private Guest guest;
+    @JsonIgnoreProperties({"creator","tocreation","civilstatus","fullname","dobirth","gender","nic","mobile","land","email","address","designation","dorecruit","employeestatus","description"})
+    private Employee employee;
 
     @JsonIgnore
     @OneToMany(mappedBy="user")
@@ -83,7 +83,7 @@ public class User{
     }
 
 
-    public User(Integer id, String username, Guest guest){
+    public User(Integer id, String username, Employee employee){
         this.id = id;
         this.username = username;
     }
@@ -91,7 +91,7 @@ public class User{
     @Transient
     @JsonIgnore
     public boolean isSuperAdmin(){
-        if (this.guest != null) return false;
+        if (this.employee != null) return false;
         return true;
     }
 

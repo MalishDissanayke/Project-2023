@@ -26,22 +26,60 @@ export class MaterialService {
     return materialDataPage;
   }
 
+  // async getAllBasicMaterialProduct(pageRequest: PageRequest): Promise<MaterialDataPage>{
+  //   const url = pageRequest.getPageRequestURL('materials/basic');
+  //   const materialDataPage = await this.http.get<MaterialDataPage>(ApiManager.getURL(url)).toPromise();
+  //   materialDataPage.content = materialDataPage.content.map((material) => Object.assign(new Material(), material));
+  //
+  //   return  materialDataPage;
+  // }
+  async getAllBasics(materierialId: number): Promise<Material[]>{
+    if (materierialId === null) { return []; }
+
+    let materials = await this.http.get<Material[]>(ApiManager.getURL('materials/basic/' + materierialId)).toPromise();
+    materials = materials.map((item) => Object.assign(new Material(), item));
+    return materials;
+  }
+
+
   async getAllBySupplier(id: number): Promise<Material[]>{
     let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/supplier/${id}`)).toPromise();
     materials = materials.map((material) => Object.assign(new Material(), material));
     return materials;
   }
 
-  async getAllByPorder(id: number): Promise<Material[]>{
-    let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/porder/${id}`)).toPromise();
+  async getAllByMaterial(id: number): Promise<Material[]>{
+    let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/${id}`)).toPromise();
     materials = materials.map((material) => Object.assign(new Material(), material));
     return materials;
   }
+  async getAllBasicBySupplier(supplietId: number): Promise<Material[]>{
+
+    if (supplietId === null) { return []; }
+
+    let materials = await this.http.get<Material[]>(ApiManager.getURL('materials/basic/' + supplietId)).toPromise();
+    materials = materials.map((item) => Object.assign(new Material(), item));
+    return materials;
+  }
+
+  async getAllByPorder(id: number): Promise<Material[]>{
+    let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/${id}`)).toPromise();
+    materials = materials.map((material) => Object.assign(new Material(), material));
+    return materials;
+  }
+
+  async getAllByProduct(id: number): Promise<Material[]>{
+    let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/product/${id}`)).toPromise();
+    materials = materials.map((material) => Object.assign(new Material(), material));
+    return materials;
+  }
+
 
   async get(id: number): Promise<Material>{
     const material: Material = await this.http.get<Material>(ApiManager.getURL(`materials/${id}`)).toPromise();
     return Object.assign(new Material(), material);
   }
+
 
   async delete(id: number): Promise<void>{
     return this.http.delete<void>(ApiManager.getURL(`materials/${id}`)).toPromise();

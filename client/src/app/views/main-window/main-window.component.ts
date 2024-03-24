@@ -124,15 +124,16 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     const dashboardLink = new LinkItem('Dashboard', '/', 'dashboard');
     const userLink = new LinkItem('User Management', '', 'admin_panel_settings');
     const roleLink = new LinkItem('Role Management', '', 'assignment_ind');
-    const clientLink = new LinkItem('Client Management', '', 'supervised_user_circle');
+    // const clientLink = new LinkItem('Client Management', '', 'supervised_user_circle');
     const supplierLink = new LinkItem('Supplier Management', '', 'local_shipping');
-    const guestLink = new LinkItem('Guest Management', '/', 'trip_origin');
-    const purchaseLink = new LinkItem('Purchase Management', '/', 'shopping_cart');
+    const employeeLink = new LinkItem('Guest User Management', '/', 'trip_origin');
+    const purchaseLink = new LinkItem('Supplier Purchase Management', '/', 'shopping_cart');
     const materialLink = new LinkItem('Material Management', '/', 'store');
-    const porderLink = new LinkItem('Purchase Order Management', '/', 'queue');
+    const porderLink = new LinkItem('Supplier Purchase Order Management', '/', 'queue');
     const supplierpaymentLink = new LinkItem('Supplier Payment Management', '/', 'payment');
     const materialdisposalLink = new LinkItem('Material Disposal Management', '/', 'delete_forever');
-    const branchLink = new LinkItem('BranchManagement', '', 'local_shipping');
+    const productLink = new LinkItem('Product Management', '', 'local_shipping');
+    // const branchLink = new LinkItem('BranchManagement', '', 'local_shipping');
 
     const showUserLink = new LinkItem('Show All Users', '/users', 'list');
     showUserLink.addUsecaseId(UsecaseList.SHOW_ALL_USERS);
@@ -150,21 +151,21 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     addRoleLink.addUsecaseId(UsecaseList.ADD_ROLE);
     roleLink.children.push(addRoleLink);
 
-    const addNewGuestLink = new LinkItem('Add New Guest', 'guests/add', 'add');
-    addNewGuestLink.addUsecaseId(UsecaseList.ADD_GUEST);
-    guestLink.children.push(addNewGuestLink);
+    const addNewEmployeeLink = new LinkItem('Add New Guest User', 'employees/add', 'add');
+    addNewEmployeeLink.addUsecaseId(UsecaseList.ADD_EMPLOYEE);
+    employeeLink.children.push(addNewEmployeeLink);
 
-    const showAllGuestLink = new LinkItem('Show All Guest', 'guests', 'list');
-    showAllGuestLink.addUsecaseId(UsecaseList.SHOW_ALL_GUESTS);
-    guestLink.children.push(showAllGuestLink);
-
-    const addNewClientLink = new LinkItem('Add New Client', 'clients/add', 'add');
-    addNewClientLink.addUsecaseId(UsecaseList.ADD_CLIENT);
-    clientLink.children.push(addNewClientLink);
-
-    const showAllClientLink = new LinkItem('Show All Client', 'clients', 'list');
-    showAllClientLink.addUsecaseId(UsecaseList.SHOW_ALL_CLIENTS);
-    clientLink.children.push(showAllClientLink);
+    const showAllEmployeeLink = new LinkItem('Show All Guest Users', 'employees', 'list');
+    showAllEmployeeLink.addUsecaseId(UsecaseList.SHOW_ALL_EMPLOYEES);
+    employeeLink.children.push(showAllEmployeeLink);
+    //
+    // const addNewClientLink = new LinkItem('Add New Client', 'clients/add', 'add');
+    // addNewClientLink.addUsecaseId(UsecaseList.ADD_CLIENT);
+    // clientLink.children.push(addNewClientLink);
+    //
+    // const showAllClientLink = new LinkItem('Show All Client', 'clients', 'list');
+    // showAllClientLink.addUsecaseId(UsecaseList.SHOW_ALL_CLIENTS);
+    // clientLink.children.push(showAllClientLink);
 
     const addNewSupplierLink = new LinkItem('Add New Supplier', 'suppliers/add', 'add');
     addNewSupplierLink.addUsecaseId(UsecaseList.ADD_SUPPLIER);
@@ -175,11 +176,12 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     supplierLink.children.push(showAllSupplierLink);
 
 
-    const addNewPurchaseLink = new LinkItem('Add New Purchase', 'purchases/add', 'add');
+
+    const addNewPurchaseLink = new LinkItem('Add New Supplier Purchase', 'purchases/add', 'add');
     addNewPurchaseLink.addUsecaseId(UsecaseList.ADD_PURCHASE);
     purchaseLink.children.push(addNewPurchaseLink);
 
-    const showAllPurchaseLink = new LinkItem('Show All Purchases', 'purchases', 'list');
+    const showAllPurchaseLink = new LinkItem('Show All Supplier Purchases', 'purchases', 'list');
     showAllPurchaseLink.addUsecaseId(UsecaseList.SHOW_ALL_PURCHASES);
     purchaseLink.children.push(showAllPurchaseLink);
 
@@ -191,11 +193,11 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     showAllMaterialLink.addUsecaseId(UsecaseList.SHOW_ALL_MATERIALS);
     materialLink.children.push(showAllMaterialLink);
 
-    const addNewPorderLink = new LinkItem('Add New Purchase Order', 'porders/add', 'add');
+    const addNewPorderLink = new LinkItem('Add New Supplier Purchase Order', 'porders/add', 'add');
     addNewPorderLink.addUsecaseId(UsecaseList.ADD_PORDER);
     porderLink.children.push(addNewPorderLink);
 
-    const showAllPorderLink = new LinkItem('Show All Purchase Orders', 'porders', 'list');
+    const showAllPorderLink = new LinkItem('Show All Supplier Purchase Orders', 'porders', 'list');
     showAllPorderLink.addUsecaseId(UsecaseList.SHOW_ALL_PORDERS);
     porderLink.children.push(showAllPorderLink);
 
@@ -215,28 +217,36 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     showAllMaterialdisposalLink.addUsecaseId(UsecaseList.SHOW_ALL_MATERIALDISPOSALS);
     materialdisposalLink.children.push(showAllMaterialdisposalLink);
 
-    const addNewBranchLink = new LinkItem('Add New Branch', 'branches/add', 'add');
-    addNewBranchLink.addUsecaseId(UsecaseList.ADD_BRANCH);
-    branchLink.children.push(addNewBranchLink);
+    // const addNewBranchLink = new LinkItem('Add New Branch', 'branches/add', 'add');
+    // addNewBranchLink.addUsecaseId(UsecaseList.ADD_BRANCH);
+    // branchLink.children.push(addNewBranchLink);
+    //
+    // const showAllBranchLink = new LinkItem('Show All Branch', 'branches', 'list');
+    // showAllBranchLink.addUsecaseId(UsecaseList.SHOW_ALL_BRANCHES);
+    // branchLink.children.push(showAllBranchLink);
 
-    const showAllBranchLink = new LinkItem('Show All Branch', 'branches', 'list');
-    showAllBranchLink.addUsecaseId(UsecaseList.SHOW_ALL_BRANCHES);
-    branchLink.children.push(showAllBranchLink);
+    const addNewProductLink = new LinkItem('Add New Supplier Purchase Order', 'products/add', 'add');
+    addNewProductLink.addUsecaseId(UsecaseList.ADD_PRODUCT);
+    productLink.children.push(addNewProductLink);
 
-
+    const showAllProductLink = new LinkItem('Show All Supplier Purchase Orders', 'products', 'list');
+    showAllProductLink.addUsecaseId(UsecaseList.SHOW_ALL_PRODUCTS);
+    productLink.children.push(showAllProductLink);
 
     this.linkItems.push(dashboardLink);
     this.linkItems.push(userLink);
     this.linkItems.push(roleLink);
-    this.linkItems.push(guestLink);
-    this.linkItems.push(clientLink);
+    this.linkItems.push(employeeLink);
+    // this.linkItems.push(clientLink);
     this.linkItems.push(supplierLink);
     this.linkItems.push(materialLink);
     this.linkItems.push(porderLink);
     this.linkItems.push(purchaseLink);
     this.linkItems.push(supplierpaymentLink);
     this.linkItems.push(materialdisposalLink);
-    this.linkItems.push(branchLink);
+    this.linkItems.push(productLink);
+
+    // this.linkItems.push(branchLink);
 
   }
 

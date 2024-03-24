@@ -27,7 +27,7 @@ public class Civilstatus{
 
     @JsonIgnore
     @OneToMany(mappedBy = "civilstatus")
-    private List<Guest> civilstatusGuestList;
+    private List<Employee> civilstatusEmployeeList;
 
 
     public Civilstatus(Integer id){
