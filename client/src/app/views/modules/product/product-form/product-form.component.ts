@@ -197,10 +197,10 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
 
   form = new FormGroup({
     doordered: new FormControl(null, [
-      Validators.required,
+
     ]),
     dorequired: new FormControl(null, [
-      Validators.required,
+
     ]),
     productmaterials: new FormControl(),
     description: new FormControl(null, [
