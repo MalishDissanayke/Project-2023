@@ -47,6 +47,11 @@ export class MaterialService {
     materials = materials.map((material) => Object.assign(new Material(), material));
     return materials;
   }
+  async getAllMaterials(): Promise<Material[]> {
+    let materials = await this.http.get<Material[]>(ApiManager.getURL('materials')).toPromise();
+    materials = materials.map((material) => Object.assign(new Material(), material));
+    return materials;
+  }
 
   async getAllByMaterial(id: number): Promise<Material[]>{
     let materials = await this.http.get<Material[]>(ApiManager.getURL(`materials/${id}`)).toPromise();

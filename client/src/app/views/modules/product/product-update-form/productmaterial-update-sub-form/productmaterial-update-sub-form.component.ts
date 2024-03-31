@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ApiManager} from '../../../../../shared/api-manager';
@@ -6,30 +6,28 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {PageRequest} from '../../../../../shared/page-request';
 import {AbstractSubFormComponent} from '../../../../../shared/ui-components/abstract-sub-form/abstract-sub-form.component';
 import {Productmaterial} from '../../../../../entities/productmaterial';
-import {Material} from '../../../../../entities/material';
+import { Material } from 'src/app/entities/material';
 import {MaterialService} from '../../../../../services/material.service';
 
 
-
 @Component({
-  selector: 'app-productmaterial-sub-form',
-  templateUrl: './productmaterial-sub-form.component.html',
-  styleUrls: ['./productmaterial-sub-form.component.scss'],
+  selector: 'app-productmaterial-update-sub-form',
+  templateUrl: './productmaterial-update-sub-form.component.html',
+  styleUrls: ['./productmaterial-update-sub-form.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ProductmaterialSubFormComponent),
+      useExisting: forwardRef(() => ProductmaterialUpdateSubFormComponent),
       multi: true
     }, {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => ProductmaterialSubFormComponent),
+      useExisting: forwardRef(() => ProductmaterialUpdateSubFormComponent),
       multi: true,
     }
   ]
 })
-export class ProductmaterialSubFormComponent extends AbstractSubFormComponent<Productmaterial> implements OnInit{
+export class ProductmaterialUpdateSubFormComponent extends AbstractSubFormComponent<Productmaterial> implements OnInit{
 
-  @Input()
   materials: Material[] = [];
 
   hasValidations = false;
@@ -71,6 +69,12 @@ export class ProductmaterialSubFormComponent extends AbstractSubFormComponent<Pr
   }
 
   ngOnInit(): void {
+    this.materialService.getAllBasic(new PageRequest()).then((materialDataPage) => {
+      this.materials = materialDataPage.content;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
   }
 
   setValidations(): void{
@@ -79,7 +83,7 @@ export class ProductmaterialSubFormComponent extends AbstractSubFormComponent<Pr
     this.qtyField.setValidators([
       Validators.required,
       Validators.pattern('^([0-9]{1,10}([.][0-9]{1,3})?)$'),
-      Validators.max(10000),
+      Validators.max(13),
       Validators.min(2),
     ]);
   }
@@ -103,15 +107,15 @@ export class ProductmaterialSubFormComponent extends AbstractSubFormComponent<Pr
 
   // Operations related functions
   getDeleteConfirmMessage(productmaterial: Productmaterial): string {
-    return 'Are you sure to remove \u201C ' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + ' \u201D from material list ?';
+    return 'Are you sure to remove \u201C ' + productmaterial.material.name + ' \u201D from allowance list ?';
   }
 
   getUpdateConfirmMessage(productmaterial: Productmaterial): string {
     if (this.isFormEmpty){
-      return 'Are you sure to update \u201C\u00A0' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + '\u00A0\u201D\u00A0?';
+      return 'Are you sure to update \u201C\u00A0' + productmaterial.material.name + '\u00A0\u201D\u00A0?';
     }
 
-    return 'Are you sure to update \u201C\u00A0' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
+    return 'Are you sure to update \u201C\u00A0' + productmaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
   }
 
   addData(): void{

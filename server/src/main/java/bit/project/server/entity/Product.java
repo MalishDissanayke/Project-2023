@@ -11,76 +11,65 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private String code;
 
-<<<<<<< HEAD
-    private String name;
-
     private LocalDate doordered;
-=======
-    private LocalDateTime tocreation;
 
->>>>>>> parent of 27f0006 (Working version)
+    private LocalDate dorequired;
 
-
+    private LocalDate doreceived;
 
     @Lob
     private String description;
 
-    private String name;
+    private LocalDateTime tocreation;
 
-    private Integer qty;
-
-    private String photo;
 
     @ManyToOne
-    @JsonIgnoreProperties({"creator", "status", "tocreation", "rolelist"})
-    private User creator;
+    private Supplier supplier;
+
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Productmaterial> productmaterialList;
 
     @ManyToOne
     private Productstatus productstatus;
 
     @ManyToOne
-    private Producttype producttype;
+    private Productstatus producttype;
 
     @ManyToOne
-    private Productcategory productcategory;
+    private Productstatus productcategory;
+
+    @ManyToOne
+    @JsonIgnoreProperties({"creator","status","tocreation","roleList"})
+    private User creator;
+
 
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "product")
-//    private List<Prorder> prorderList;
+//    private List<Purchase> productPurchaseList;
 
 
-    @OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Productmaterial> productmaterialList;
-    
-
-    public Product(Integer id) {
+    public Product(Integer id){
         this.id = id;
     }
 
-<<<<<<< HEAD
-    public Product(Integer id, String code,String name , LocalDate doordered, LocalDate dorequired, Supplier supplier){
-=======
-    public Product(Integer id, String code, String name) {
->>>>>>> parent of 27f0006 (Working version)
+    public Product(Integer id, String code, LocalDate doordered, LocalDate dorequired, Supplier supplier){
         this.id = id;
-        this.name=name;
         this.code = code;
-        this.name = name;
+        this.doordered = doordered;
+        this.dorequired = dorequired;
+        this.supplier = supplier;
     }
-
-
 
 }

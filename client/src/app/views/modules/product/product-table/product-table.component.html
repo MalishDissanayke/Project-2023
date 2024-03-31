@@ -19,35 +19,10 @@
 
             <div class="col-md-6 col-lg-3">
               <mat-form-field class="w-100 search-form-field" appearance="outline">
-                <mat-label>Filter by Name</mat-label>
-                <input matInput [formControl]="nameField" (keyup)="loadData()">
-              </mat-form-field>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-              <mat-form-field class="w-100 search-form-field" appearance="outline">
-                <mat-label>Filter by Producttype</mat-label>
-                <mat-select [formControl]="producttypeField" (ngModelChange)="loadData()">
-                  <mat-option [value]="null" selected >Any Producttype</mat-option>
-                  <mat-option *ngFor="let producttype of producttypes" [value]="producttype.id">{{producttype.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <mat-form-field class="w-100 search-form-field" appearance="outline">
-                <mat-label>Filter by Productstatus</mat-label>
-                <mat-select [formControl]="productstatusField" (ngModelChange)="loadData()">
-                  <mat-option [value]="null" selected >Any Productstatus</mat-option>
-                  <mat-option *ngFor="let productstatus of productstatuses" [value]="productstatus.id">{{productstatus.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <mat-form-field class="w-100 search-form-field" appearance="outline">
-                <mat-label>Filter by Productcategory</mat-label>
-                <mat-select [formControl]="productcategoryField" (ngModelChange)="loadData()">
-                  <mat-option [value]="null" selected >Any Productcategory</mat-option>
-                  <mat-option *ngFor="let productcategory of productcategories" [value]="productcategory.id">{{productcategory.name}}</mat-option>
+                <mat-label>Filter by Supplier</mat-label>
+                <mat-select [formControl]="supplierField" (ngModelChange)="loadData()">
+                  <mat-option [value]="null" selected >Any Supplier</mat-option>
+                  <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{supplier.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -55,43 +30,25 @@
         </div>
         <div class="table-responsive" *ngIf="productDataPage.totalElements > 0">
           <table mat-table [dataSource]="productDataPage.content" class="w-100">
-            <ng-container matColumnDef="photo">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element">
-                <img *ngIf="!element.photo" class="row-thumbnail" src="assets/image.png">
-                <img *ngIf="element.photo" class="row-thumbnail" src="{{thumbnailURL}}{{element.photo}}">
-              </td>
-            </ng-container>
 
             <ng-container matColumnDef="code">
               <th mat-header-cell *matHeaderCellDef>Code</th>
               <td mat-cell *matCellDef="let element"> {{element.code}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <ng-container matColumnDef="doordered">
+              <th mat-header-cell *matHeaderCellDef>Date of Ordered</th>
+              <td mat-cell *matCellDef="let element"> {{element.doordered | date: 'longDate'}} </td>
             </ng-container>
 
-
-
-            <ng-container matColumnDef="quantity">
-              <th mat-header-cell *matHeaderCellDef>Quantity</th>
-<!--              <td mat-cell *matCellDef="let element" [ngStyle]="{'color':element.qty >100 ?'green':'red'}"> {{element.qty}} </td>-->
-              <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+            <ng-container matColumnDef="dorequired">
+              <th mat-header-cell *matHeaderCellDef>Date of Required</th>
+              <td mat-cell *matCellDef="let element"> {{element.dorequired | date: 'longDate'}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="producttype">
-              <th mat-header-cell *matHeaderCellDef>producttype</th>
-              <td mat-cell *matCellDef="let element"> {{element.producttype.name}} </td>
-            </ng-container>
-            <ng-container matColumnDef="productstatus">
-              <th mat-header-cell *matHeaderCellDef>productstatus</th>
-              <td mat-cell *matCellDef="let element"> {{element.productstatus.name}} </td>
-            </ng-container>
-            <ng-container matColumnDef="productcategory">
-              <th mat-header-cell *matHeaderCellDef>productcategory</th>
-              <td mat-cell *matCellDef="let element"> {{element.productcategory.name}} </td>
+            <ng-container matColumnDef="supplier">
+              <th mat-header-cell *matHeaderCellDef>Supplier</th>
+              <td mat-cell *matCellDef="let element"> {{element.supplier.name}} </td>
             </ng-container>
 
             <ng-container matColumnDef="more-col">
