@@ -103,15 +103,15 @@ export class ProductmaterialSubFormComponent extends AbstractSubFormComponent<Pr
 
   // Operations related functions
   getDeleteConfirmMessage(productmaterial: Productmaterial): string {
-    return 'Are you sure to remove \u201C ' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + ' \u201D from material list ?';
+    return 'Are you sure to remove \u201C ' +  productmaterial.material.name + ' \u201D from material list ?';
   }
 
   getUpdateConfirmMessage(productmaterial: Productmaterial): string {
     if (this.isFormEmpty){
-      return 'Are you sure to update \u201C\u00A0' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + '\u00A0\u201D\u00A0?';
+      return 'Are you sure to update \u201C\u00A0' + productmaterial.material.name + '\u00A0\u201D\u00A0?';
     }
 
-    return 'Are you sure to update \u201C\u00A0' + productmaterial.material.brand.name + ' ' + productmaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
+    return 'Are you sure to update \u201C\u00A0' +  productmaterial.material.name + '\u00A0\u201D and discard existing form data\u00A0?';
   }
 
   addData(): void{

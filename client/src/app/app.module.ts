@@ -104,13 +104,13 @@ import {PurchaseDetailComponent} from './views/modules/purchase/purchase-detail/
 // import { BranchFormComponent } from './views/modules/branch/branch-form/branch-form.component';
 // import { BranchTableComponent } from './views/modules/branch/branch-table/branch-table.component';
 // import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-form/branch-update-form.component';
-// import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
+import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
 import {ProductTableComponent} from './views/modules/product/product-table/product-table.component';
 import {ProductFormComponent} from './views/modules/product/product-form/product-form.component';
 import {ProductDetailComponent} from './views/modules/product/product-detail/product-detail.component';
 import {ProductmaterialSubFormComponent} from './views/modules/product/product-form/productmaterial-sub-form/productmaterial-sub-form.component';
-import {ProductmaterialUpdateSubFormComponent} from './views/modules/product/product-update-form/productmaterial-update-sub-form/productmaterial-update-sub-form.component';
-import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
+
+
 
 @NgModule({
     declarations: [
@@ -191,16 +191,13 @@ import {ProductUpdateFormComponent} from './views/modules/product/product-update
       // BranchUpdateFormComponent,
 
       // ProductmaterialUpdateSubFormComponent,
-      // ProductmaterialSubFormComponent,
+      ProductmaterialSubFormComponent,
       ProductTableComponent,
       ProductFormComponent,
       ProductDetailComponent,
-      ProductmaterialSubFormComponent,
       ProductUpdateFormComponent,
-      ProductmaterialUpdateSubFormComponent,
-      // ProductUpdateFormComponent,
       // ProductmaterialUpdateSubFormComponent,
-      // ProductmaterialSubFormComponent,
+      ProductmaterialSubFormComponent,
 
     ],
   imports: [

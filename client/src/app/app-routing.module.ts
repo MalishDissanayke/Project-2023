@@ -48,7 +48,10 @@ import {MaterialTableComponent} from './views/modules/material/material-table/ma
 import {MaterialFormComponent} from './views/modules/material/material-form/material-form.component';
 import {MaterialDetailComponent} from './views/modules/material/material-detail/material-detail.component';
 import {MaterialUpdateFormComponent} from './views/modules/material/material-update-form/material-update-form.component';
-
+// import {BranchTableComponent} from './views/modules/branch/branch-table/branch-table.component';
+// import {BranchFormComponent} from './views/modules/branch/branch-form/branch-form.component';
+// import {BranchDetailComponent} from './views/modules/branch/branch-detail/branch-detail.component';
+// import {BranchUpdateFormComponent} from './views/modules/branch/branch-update-form/branch-update-form.component';
 import {ProductTableComponent} from './views/modules/product/product-table/product-table.component';
 import {ProductFormComponent} from './views/modules/product/product-form/product-form.component';
 import {ProductDetailComponent} from './views/modules/product/product-detail/product-detail.component';

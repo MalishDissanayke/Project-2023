@@ -1,21 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Material} from '../../../../entities/material';
+import {Materialtype} from '../../../../entities/materialtype';
+import {Brand} from '../../../../entities/brand';
+import {Unit} from '../../../../entities/unit';
+import {Materialstatus} from '../../../../entities/materialstatus';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MaterialtypeService} from '../../../../services/materialtype.service';
+import {BrandService} from '../../../../services/brand.service';
+import {UnitService} from '../../../../services/unit.service';
+import {MaterialstatusService} from '../../../../services/materialstatus.service';
+import {MaterialService} from '../../../../services/material.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
 import {ResourceLink} from '../../../../shared/resource-link';
 import {AbstractComponent} from '../../../../shared/abstract-component';
-import {PageRequest} from '../../../../shared/page-request';
-import {ViewChild} from '@angular/core';
-import {DateHelper} from '../../../../shared/date-helper';
-import {ProductmaterialUpdateSubFormComponent} from './productmaterial-update-sub-form/productmaterial-update-sub-form.component';
-import { Productstatus } from 'src/app/entities/productstatus';
-import {Supplier} from "../../../../entities/supplier";
-import {Product} from "../../../../entities/product";
-import {SupplierService} from "../../../../services/supplier.service";
-import {ProductstatusService} from "../../../../services/productstatus.service";
-import {ProductService} from "../../../../services/product.service";
+import {Product} from '../../../../entities/product';
+import {Producttype} from '../../../../entities/producttype';
+import {Productstatus} from '../../../../entities/productstatus';
+import {Productcategory} from '../../../../entities/productcategory';
+import {ProducttypeService} from '../../../../services/producttype.service';
+import {ProductstatusService} from '../../../../services/productstatus.service';
+import {ProductService} from '../../../../services/product.service';
+import {ProductcategoryService} from '../../../../services/productcategory.service';
 
 @Component({
   selector: 'app-product-update-form',
@@ -27,62 +35,59 @@ export class ProductUpdateFormComponent extends AbstractComponent implements OnI
   selectedId: number;
   product: Product;
 
-  suppliers: Supplier[] = [];
-  @ViewChild(ProductmaterialUpdateSubFormComponent) productmaterialUpdateSubForm: ProductmaterialUpdateSubFormComponent;
+  producttypes: Producttype[] = [];
+  productcategories: Productcategory[] = [];
   productstatuses: Productstatus[] = [];
 
   form = new FormGroup({
-    doordered: new FormControl(null, [
+    producttype: new FormControl(null, [
       Validators.required,
     ]),
-    dorequired: new FormControl(null, [
+    name: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(null),
+      Validators.maxLength(255),
+    ]),
+    qty: new FormControl(null, [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(10000),
+      Validators.pattern('^([0-9]{1,10}([.][0-9]{1,3})?)$'),
+    ]),
+    productcategory: new FormControl(null, [
       Validators.required,
     ]),
-    doreceived: new FormControl(null, [
-    ]),
-    supplier: new FormControl(null, [
-      Validators.required,
-    ]),
-    productmaterials: new FormControl(),
+    photo: new FormControl(),
     productstatus: new FormControl('1', [
       Validators.required,
     ]),
-    description: new FormControl(null, [
-      Validators.minLength(null),
-      Validators.maxLength(5000),
-    ]),
   });
 
-  get doorderedField(): FormControl{
-    return this.form.controls.doordered as FormControl;
+  get producttypeField(): FormControl{
+    return this.form.controls.producttype as FormControl;
   }
 
-  get dorequiredField(): FormControl{
-    return this.form.controls.dorequired as FormControl;
+  get nameField(): FormControl{
+    return this.form.controls.name as FormControl;
+  }
+  get qtyField(): FormControl{
+    return this.form.controls.qty as FormControl;
+  }
+  get productcategoryField(): FormControl{
+    return this.form.controls.productcategory as FormControl;
   }
 
-  get doreceivedField(): FormControl{
-    return this.form.controls.doreceived as FormControl;
-  }
-
-  get supplierField(): FormControl{
-    return this.form.controls.supplier as FormControl;
-  }
-
-  get productmaterialsField(): FormControl{
-    return this.form.controls.productmaterials as FormControl;
+  get photoField(): FormControl{
+    return this.form.controls.photo as FormControl;
   }
 
   get productstatusField(): FormControl{
     return this.form.controls.productstatus as FormControl;
   }
 
-  get descriptionField(): FormControl{
-    return this.form.controls.description as FormControl;
-  }
-
   constructor(
-    private supplierService: SupplierService,
+    private producttypeService: ProducttypeService,
+    private productcategoryService: ProductcategoryService,
     private productstatusService: ProductstatusService,
     private productService: ProductService,
     private route: ActivatedRoute,
@@ -93,6 +98,7 @@ export class ProductUpdateFormComponent extends AbstractComponent implements OnI
   }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe( async (params) => {
       this.selectedId =  + params.get('id');
       await this.loadData();
@@ -100,13 +106,19 @@ export class ProductUpdateFormComponent extends AbstractComponent implements OnI
     });
   }
 
-async loadData(): Promise<any>{
+  async loadData(): Promise<any>{
 
     this.updatePrivileges();
     if (!this.privilege.update) { return; }
 
-    this.supplierService.getAllBasic(new PageRequest()).then((supplierDataPage) => {
-      this.suppliers = supplierDataPage.content;
+    this.producttypeService.getAll().then((producttypes) => {
+      this.producttypes = producttypes;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+    this.productcategoryService.getAll().then((productcategories) => {
+      this.productcategories = productcategories;
     }).catch((e) => {
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
@@ -136,42 +148,44 @@ async loadData(): Promise<any>{
   }
 
   setValues(): void{
-    if (this.doorderedField.pristine) {
-      this.doorderedField.setValue(this.product.doordered);
+    if (this.producttypeField.pristine) {
+      this.producttypeField.setValue(this.product.producttype.id);
     }
-    if (this.dorequiredField.pristine) {
-      this.dorequiredField.setValue(this.product.dorequired);
+    if (this.nameField.pristine) {
+      this.nameField.setValue(this.product.name);
     }
-    if (this.doreceivedField.pristine) {
-      this.doreceivedField.setValue(this.product.doreceived);
+    if (this.qtyField.pristine) {
+      this.qtyField.setValue(this.product.qty);
     }
-    if (this.supplierField.pristine) {
-      this.supplierField.setValue(this.product.supplier.id);
+    if (this.photoField.pristine) {
+      if (this.product.photo) { this.photoField.setValue([this.product.photo]); }
+      else { this.photoField.setValue([]); }
     }
-    if (this.productmaterialsField.pristine) {
-      this.productmaterialsField.setValue(this.product.productmaterialList);
+    if (this.productcategoryField.pristine) {
+      this.productcategoryField.setValue(this.product.productcategory.id);
     }
     if (this.productstatusField.pristine) {
       this.productstatusField.setValue(this.product.productstatus.id);
     }
-    if (this.descriptionField.pristine) {
-      this.descriptionField.setValue(this.product.description);
-    }
-}
+  }
 
   async submit(): Promise<void> {
-    this.productmaterialUpdateSubForm.resetForm();
-    this.productmaterialsField.markAsDirty();
+    this.photoField.updateValueAndValidity();
+    this.photoField.markAsTouched();
     if (this.form.invalid) { return; }
 
     const newproduct: Product = new Product();
-    newproduct.doordered = DateHelper.getDateAsString(this.doorderedField.value);
-    newproduct.dorequired = DateHelper.getDateAsString(this.dorequiredField.value);
-    newproduct.doreceived = this.doreceivedField.value ? DateHelper.getDateAsString(this.doreceivedField.value) : null;
-    newproduct.supplier = this.supplierField.value;
-    newproduct.productmaterialList = this.productmaterialsField.value;
+    newproduct.producttype = this.producttypeField.value;
+    newproduct.name = this.nameField.value;
+    newproduct.qty = this.qtyField.value;
+    newproduct.productcategory = this.productcategoryField.value;
     newproduct.productstatus = this.productstatusField.value;
-    newproduct.description = this.descriptionField.value;
+    const photoIds = this.photoField.value;
+    if (photoIds !== null && photoIds !== []){
+      newproduct.photo = photoIds[0];
+    }else{
+      newproduct.photo = null;
+    }
     try{
       const resourceLink: ResourceLink = await this.productService.update(this.selectedId, newproduct);
       if (this.privilege.showOne) {
@@ -186,13 +200,11 @@ async loadData(): Promise<any>{
         case 400:
           const msg = JSON.parse(e.error.message);
           let knownError = false;
-          if (msg.doordered) { this.doorderedField.setErrors({server: msg.doordered}); knownError = true; }
-          if (msg.dorequired) { this.dorequiredField.setErrors({server: msg.dorequired}); knownError = true; }
-          if (msg.doreceived) { this.doreceivedField.setErrors({server: msg.doreceived}); knownError = true; }
-          if (msg.supplier) { this.supplierField.setErrors({server: msg.supplier}); knownError = true; }
-          if (msg.productmaterialList) { this.productmaterialsField.setErrors({server: msg.productmaterialList}); knownError = true; }
+          if (msg.producttype) { this.producttypeField.setErrors({server: msg.producttype}); knownError = true; }
+          if (msg.name) { this.nameField.setErrors({server: msg.name}); knownError = true; }
+          if (msg.qty) { this.qtyField.setErrors({server: msg.qty}); knownError = true; }
+          if (msg.productcategory) { this.productcategoryField.setErrors({server: msg.productcategory}); knownError = true; }
           if (msg.productstatus) { this.productstatusField.setErrors({server: msg.productstatus}); knownError = true; }
-          if (msg.description) { this.descriptionField.setErrors({server: msg.description}); knownError = true; }
           if (!knownError) {
             this.snackBar.open('Validation Error', null, {duration: 2000});
           }
@@ -203,4 +215,6 @@ async loadData(): Promise<any>{
     }
 
   }
+
+
 }

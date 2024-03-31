@@ -3,27 +3,29 @@
 <app-loading *ngIf="!loaded"></app-loading>
 <div *ngIf="product && privilege.showOne">
   <app-page-header
-    title="Product Detail Page of {{ product.code }}"
-    [breadcrumbSegments]="['Products', 'Show All Products', 'Details of ' + product.code]"
+    title="Product Detail Page of {{ product.code + ' ' + product.name }}"
+    [breadcrumbSegments]="['Products', 'Show All Products', 'Details of ' + product.code + ' ' + product.name]"
   ></app-page-header>
   <div class="row">
     <div class="col-md-4">
       <mat-card class="example-card">
+        <img mat-card-image *ngIf="!photo" src="assets/user.jpg">
+        <img mat-card-image *ngIf="photo" src="{{photo}}">
         <mat-card-content>
           <table class="w-100 table-striped custom-data-table">
             <tbody>
-              <tr>
-                <th>Created Date</th>
-                <td>{{product.tocreation | date}}</td>
-              </tr>
-              <tr>
-                <th>Created Time</th>
-                <td>{{product.tocreation | date: 'shortTime': '+0530'}}</td>
-              </tr>
-              <tr>
-                <th>Creator</th>
-                <td>{{getUserDisplayName(product.creator)}}</td>
-              </tr>
+            <tr>
+              <th>Created Date</th>
+              <td>{{product.tocreation | date}}</td>
+            </tr>
+            <tr>
+              <th>Created Time</th>
+              <td>{{product.tocreation | date: 'shortTime': '+0530'}}</td>
+            </tr>
+            <tr>
+              <th>Creator</th>
+              <td>{{getUserDisplayName(product.creator)}}</td>
+            </tr>
             </tbody>
           </table>
         </mat-card-content>
@@ -33,7 +35,7 @@
       <mat-card class="example-card">
         <mat-card-content style="min-height: 450px;">
           <mat-tab-group>
-            <mat-tab label="Purchase Order">
+            <mat-tab label="Product">
               <mat-card class="example-card">
                 <mat-card-content>
                   <table class="w-100 table-striped custom-data-table">
@@ -43,56 +45,37 @@
                       <td>{{product.code}}</td>
                     </tr>
                     <tr>
-                      <th>Date of Ordered</th>
-                      <td>{{product.doordered | date: 'fullDate'}}</td>
+                      <th>Name</th>
+                      <td>{{product.name}}</td>
                     </tr>
                     <tr>
-                      <th>Date of Required</th>
-                      <td>{{product.dorequired | date: 'fullDate'}}</td>
+                      <th>Quantity</th>
+                      <td>{{product.qty}}</td>
                     </tr>
                     <tr>
-                      <th>Date of Received</th>
-                      <td>{{product.doreceived | date: 'fullDate'}}</td>
+                      <th>Product Type</th>
+                      <td>{{product.producttype.name}}</td>
+                    </tr>
+                    <!--                    <tr>-->
+                    <!--                      <th>Materials</th>-->
+                    <!--                      <td><span class="mat-body badge badge-secondary d-inline-block mr-2 mb-2 font-weight-light py-1 px-3" *ngFor="let material of product.materialList">{{material.brand.name + ' ' + material.name}}</span></td>-->
+                    <!--                    </tr>-->
+                    <tr>
+                      <th>Product Type</th>
+                      <td>{{product.productcategory.name}}</td>
                     </tr>
                     <tr>
-                      <th>Supplier</th>
-                      <td>{{product.supplier.name}}</td>
-                    </tr>
-                    <tr>
-                      <th>Order Status</th>
+                      <th>Product Type</th>
                       <td>{{product.productstatus.name}}</td>
                     </tr>
-                    <tr>
-                      <th>Description</th>
-                      <td [innerHTML]="product.description | nl2br"></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </mat-card-content>
-              </mat-card>
-            </mat-tab>
-            <mat-tab label="Materials">
-              <mat-card class="example-card">
-                <mat-card-content>
-                  <table class="w-100 custom-data-table">
-                    <thead>
-                    <tr>
-                      <th>Material</th>
-                      <th>Quantity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let productmaterial of product.productmaterialList">
-                      <td>{{productmaterial.material.brand.name}}{{productmaterial.material.name}}</td>
-                      <td>{{productmaterial.qty}}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </mat-card-content>
-              </mat-card>
-            </mat-tab>
-          </mat-tab-group>
 
+                    </tbody>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </mat-tab>
+
+          </mat-tab-group>
         </mat-card-content>
       </mat-card>
     </div>

@@ -1,17 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {AbstractComponent} from '../../../../shared/abstract-component';
+import {Supplier, SupplierDataPage} from '../../../../entities/supplier';
 import {FormControl} from '@angular/forms';
+import {SupplierService} from '../../../../services/supplier.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {PageRequest} from '../../../../shared/page-request';
 import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
 import {DeleteConfirmDialogComponent} from '../../../../shared/views/delete-confirm-dialog/delete-confirm-dialog.component';
-import {AbstractComponent} from '../../../../shared/abstract-component';
-import {Product, ProductDataPage} from "../../../../entities/product";
-import {Supplier} from "../../../../entities/supplier";
-import {SupplierService} from "../../../../services/supplier.service";
-import {ProductService} from "../../../../services/product.service";
-
+import {Product, ProductDataPage} from '../../../../entities/product';
+import {ProductService} from '../../../../services/product.service';
+import {Brand} from '../../../../entities/brand';
+import {Producttype} from '../../../../entities/producttype';
+import {Productstatus} from '../../../../entities/productstatus';
+import {Productcategory} from '../../../../entities/productcategory';
+import {BrandService} from '../../../../services/brand.service';
+import {ProducttypeService} from '../../../../services/producttype.service';
+import {ProductstatusService} from '../../../../services/productstatus.service';
+import {ProductcategoryService} from '../../../../services/productcategory.service';
 
 @Component({
   selector: 'app-product-table',
@@ -25,18 +32,38 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
   pageSize = 5;
   pageIndex = 0;
 
-  suppliers: Supplier[] = [];
+
+  producttypes: Producttype[] = [];
+  productstatuses: Productstatus[] = [];
+  productcategories: Productcategory[] = [];
+
 
   codeField = new FormControl();
-  supplierField = new FormControl();
+  nameField = new FormControl();
+  qtyField = new FormControl();
+
+  producttypeField = new FormControl();
+  productstatusField = new FormControl();
+  productcategoryField = new FormControl();
+
+  private producttypeService: ProducttypeService;
+  private productstatusService: ProductstatusService;
+  private productcategoryService: ProductcategoryService;
+
 
   constructor(
-    private supplierService: SupplierService,
+    producttypeService: ProducttypeService,
+    productstatusService: ProductstatusService,
+    productcategoryService: ProductcategoryService,
     private productService: ProductService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
     super();
+    this.productService = productService;
+    this.producttypeService = producttypeService;
+    this.productstatusService = productstatusService;
+    this.productcategoryService = productcategoryService;
   }
 
   async ngOnInit(): Promise<void> {
@@ -49,7 +76,6 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
     this.updatePrivileges();
 
     if (!this.privilege.showAll) { return; }
-
     this.setDisplayedColumns();
 
     const pageRequest = new PageRequest();
@@ -57,18 +83,35 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
     pageRequest.pageSize  = this.pageSize;
 
     pageRequest.addSearchCriteria('code', this.codeField.value);
-    pageRequest.addSearchCriteria('supplier', this.supplierField.value);
+    pageRequest.addSearchCriteria('name', this.nameField.value);
+    pageRequest.addSearchCriteria('qty', this.qtyField.value);
+    pageRequest.addSearchCriteria('producttype', this.producttypeField.value);
+    pageRequest.addSearchCriteria('productstatus', this.productstatusField.value);
+    pageRequest.addSearchCriteria('productcategory', this.productcategoryField.value);
 
-    this.supplierService.getAllBasic(new PageRequest()).then((supplierDataPage) => {
-      this.suppliers = supplierDataPage.content;
-    }).catch((e) => {
-      console.log(e);
-      this.snackBar.open('Something is wrong', null, {duration: 2000});
-    });
+
 
     this.productService.getAll(pageRequest).then((page: ProductDataPage) => {
       this.productDataPage = page;
     }).catch( e => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+    this.producttypeService.getAll().then((producttypes) => {
+      this.producttypes = producttypes;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+    this.productstatusService.getAll().then((productstatuses) => {
+      this.productstatuses = productstatuses;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+    this.productcategoryService.getAll().then((productcategories) => {
+      this.productcategories = productcategories;
+    }).catch((e) => {
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
     });
@@ -83,7 +126,7 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
   }
 
   setDisplayedColumns(): void{
-    this.displayedColumns = ['code', 'doordered', 'dorequired', 'supplier'];
+    this.displayedColumns = ['photo', 'name', 'code', 'producttype', 'productstatus', 'productcategory', 'quantity'];
 
     if (this.privilege.delete) { this.displayedColumns.push('delete-col'); }
     if (this.privilege.update) { this.displayedColumns.push('update-col'); }
@@ -99,7 +142,7 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
   async delete(product: Product): Promise<void>{
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '300px',
-      data: {message: product.code}
+      data: {message: product.code + ' ' + product.name}
     });
 
     dialogRef.afterClosed().subscribe( async result => {
@@ -112,4 +155,5 @@ export class ProductTableComponent extends AbstractComponent implements OnInit {
       this.loadData();
     });
   }
+
 }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {Product} from '../../../../entities/product';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {MaterialdisposalService} from '../../../../services/materialdisposal.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ProductService} from '../../../../services/product.service';
+import {AbstractComponent} from '../../../../shared/abstract-component';
 import {DeleteConfirmDialogComponent} from '../../../../shared/views/delete-confirm-dialog/delete-confirm-dialog.component';
 import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
-import {AbstractComponent} from '../../../../shared/abstract-component';
-import {Product} from "../../../../entities/product";
-import {ProductService} from "../../../../services/product.service";
 
 
 @Component({
@@ -17,9 +18,10 @@ import {ProductService} from "../../../../services/product.service";
 })
 export class ProductDetailComponent extends AbstractComponent implements OnInit {
 
+
   product: Product;
   selectedId: number;
-
+  photo: any = null;
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -45,7 +47,7 @@ export class ProductDetailComponent extends AbstractComponent implements OnInit 
   async delete(): Promise<void>{
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '300px',
-      data: {message: this.product.code}
+      data: {message: this.product.code + ' ' + this.product.name}
     });
 
     dialogRef.afterClosed().subscribe( async result => {
@@ -63,6 +65,12 @@ export class ProductDetailComponent extends AbstractComponent implements OnInit 
   async loadData(): Promise<any> {
     this.updatePrivileges();
     this.product = await this.productService.get(this.selectedId);
+    if (this.product.photo) {
+      const photoOb = await this.productService.getPhoto(this.selectedId);
+      this.photo = photoOb.file;
+    }else {
+      this.photo = null;
+    }
   }
 
   updatePrivileges(): any {
