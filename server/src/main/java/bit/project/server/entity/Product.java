@@ -23,11 +23,11 @@ public class Product {
 
     private String code;
 
-    private LocalDate doordered;
-
-    private LocalDate dorequired;
-
-    private LocalDate doreceived;
+//    private LocalDate doordered;
+//
+//    private LocalDate dorequired;
+//
+//    private LocalDate doreceived;
 
     @Lob
     private String description;
@@ -64,11 +64,11 @@ public class Product {
         this.id = id;
     }
 
-    public Product(Integer id, String code, LocalDate doordered, LocalDate dorequired, Supplier supplier){
+    public Product(Integer id, String code, Supplier supplier){
         this.id = id;
         this.code = code;
-        this.doordered = doordered;
-        this.dorequired = dorequired;
+//        this.doordered = doordered;
+//        this.dorequired = dorequired;
         this.supplier = supplier;
     }
 

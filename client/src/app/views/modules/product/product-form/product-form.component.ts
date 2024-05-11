@@ -263,11 +263,10 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
     if (this.form.invalid) { return; }
 
     const product: Product = new Product();
-    product.doordered = DateHelper.getDateAsString(this.doorderedField.value);
-    product.dorequired = DateHelper.getDateAsString(this.dorequiredField.value);
+
     product.productmaterialList = this.productmaterialsField.value;
     product.description = this.descriptionField.value;
-    product.doreceived = null;
+
     try {
       const resourceLink: ResourceLink = await this.productService.add(product);
       if (this.privilege.showOne) {

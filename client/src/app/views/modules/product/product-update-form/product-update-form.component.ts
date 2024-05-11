@@ -32,14 +32,7 @@ export class ProductUpdateFormComponent extends AbstractComponent implements OnI
   productstatuses: Productstatus[] = [];
 
   form = new FormGroup({
-    doordered: new FormControl(null, [
-      Validators.required,
-    ]),
-    dorequired: new FormControl(null, [
-      Validators.required,
-    ]),
-    doreceived: new FormControl(null, [
-    ]),
+
     supplier: new FormControl(null, [
       Validators.required,
     ]),
@@ -53,17 +46,7 @@ export class ProductUpdateFormComponent extends AbstractComponent implements OnI
     ]),
   });
 
-  get doorderedField(): FormControl{
-    return this.form.controls.doordered as FormControl;
-  }
 
-  get dorequiredField(): FormControl{
-    return this.form.controls.dorequired as FormControl;
-  }
-
-  get doreceivedField(): FormControl{
-    return this.form.controls.doreceived as FormControl;
-  }
 
   get supplierField(): FormControl{
     return this.form.controls.supplier as FormControl;
@@ -136,15 +119,9 @@ async loadData(): Promise<any>{
   }
 
   setValues(): void{
-    if (this.doorderedField.pristine) {
-      this.doorderedField.setValue(this.product.doordered);
-    }
-    if (this.dorequiredField.pristine) {
-      this.dorequiredField.setValue(this.product.dorequired);
-    }
-    if (this.doreceivedField.pristine) {
-      this.doreceivedField.setValue(this.product.doreceived);
-    }
+
+
+
     if (this.supplierField.pristine) {
       this.supplierField.setValue(this.product.supplier.id);
     }
@@ -165,9 +142,7 @@ async loadData(): Promise<any>{
     if (this.form.invalid) { return; }
 
     const newproduct: Product = new Product();
-    newproduct.doordered = DateHelper.getDateAsString(this.doorderedField.value);
-    newproduct.dorequired = DateHelper.getDateAsString(this.dorequiredField.value);
-    newproduct.doreceived = this.doreceivedField.value ? DateHelper.getDateAsString(this.doreceivedField.value) : null;
+
     newproduct.supplier = this.supplierField.value;
     newproduct.productmaterialList = this.productmaterialsField.value;
     newproduct.productstatus = this.productstatusField.value;
@@ -186,9 +161,7 @@ async loadData(): Promise<any>{
         case 400:
           const msg = JSON.parse(e.error.message);
           let knownError = false;
-          if (msg.doordered) { this.doorderedField.setErrors({server: msg.doordered}); knownError = true; }
-          if (msg.dorequired) { this.dorequiredField.setErrors({server: msg.dorequired}); knownError = true; }
-          if (msg.doreceived) { this.doreceivedField.setErrors({server: msg.doreceived}); knownError = true; }
+
           if (msg.supplier) { this.supplierField.setErrors({server: msg.supplier}); knownError = true; }
           if (msg.productmaterialList) { this.productmaterialsField.setErrors({server: msg.productmaterialList}); knownError = true; }
           if (msg.productstatus) { this.productstatusField.setErrors({server: msg.productstatus}); knownError = true; }

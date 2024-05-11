@@ -9,9 +9,6 @@ import {Productmaterial} from './productmaterial';
 export class Product {
   id: number;
   code: string;
-  doordered: string;
-  dorequired: string;
-  doreceived: string;
   supplier: Supplier;
   productstatus: Productstatus;
   productcategory: Productcategory;
