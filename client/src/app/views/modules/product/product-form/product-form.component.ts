@@ -196,11 +196,22 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
   @ViewChild(ProductmaterialSubFormComponent) productmaterialSubForm: ProductmaterialSubFormComponent;
 
   form = new FormGroup({
-    doordered: new FormControl(null, [
-
+    // doordered: new FormControl(null, [
+    //
+    // ]),
+    // dorequired: new FormControl(null, [
+    //
+    // ]),
+    name: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(null),
+      Validators.maxLength(255),
     ]),
-    dorequired: new FormControl(null, [
-
+    price: new FormControl(null, [
+      Validators.required,
+      Validators.min(2),
+      Validators.max(10000),
+      Validators.pattern('^([0-9]{1,10}([.][0-9]{1,3})?)$'),
     ]),
     productmaterials: new FormControl(),
     description: new FormControl(null, [
@@ -209,12 +220,12 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
     ]),
   });
 
-  get doorderedField(): FormControl {
-    return this.form.controls.doordered as FormControl;
+  get nameField(): FormControl {
+    return this.form.controls.name as FormControl;
   }
 
-  get dorequiredField(): FormControl {
-    return this.form.controls.dorequired as FormControl;
+  get priceField(): FormControl {
+    return this.form.controls.price as FormControl;
   }
 
   get productmaterialsField(): FormControl {
@@ -266,6 +277,8 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
 
     product.productmaterialList = this.productmaterialsField.value;
     product.description = this.descriptionField.value;
+    product.name = this.nameField.value;
+    product.price = this.priceField.value;
 
     try {
       const resourceLink: ResourceLink = await this.productService.add(product);
@@ -282,8 +295,8 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
         case 400:
           const msg = JSON.parse(e.error.message);
           let knownError = false;
-          if (msg.doordered) { this.doorderedField.setErrors({ server: msg.doordered }); knownError = true; }
-          if (msg.dorequired) { this.dorequiredField.setErrors({ server: msg.dorequired }); knownError = true; }
+          if (msg.name) { this.nameField.setErrors({ server: msg.name }); knownError = true; }
+          if (msg.price) { this.priceField.setErrors({ server: msg.price }); knownError = true; }
           if (msg.productmaterialList) { this.productmaterialsField.setErrors({ server: msg.productmaterialList }); knownError = true; }
           if (msg.description) { this.descriptionField.setErrors({ server: msg.description }); knownError = true; }
           if (!knownError) {

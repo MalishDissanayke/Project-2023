@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,9 @@ public class Product {
     private Integer id;
 
     private String code;
+
+    private String name;
+    private BigDecimal price;
 
 //    private LocalDate doordered;
 //
@@ -64,9 +68,11 @@ public class Product {
         this.id = id;
     }
 
-    public Product(Integer id, String code, Supplier supplier){
+    public Product(Integer id, String code, String name ,BigDecimal price,Supplier supplier){
         this.id = id;
         this.code = code;
+        this.name= name;
+        this.price= price;
 //        this.doordered = doordered;
 //        this.dorequired = dorequired;
         this.supplier = supplier;

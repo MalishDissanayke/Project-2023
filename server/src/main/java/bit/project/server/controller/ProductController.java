@@ -202,6 +202,7 @@ public class ProductController {
         }
 
         String code = pageQuery.getSearchParam("code");
+        String name = pageQuery.getSearchParam("name");
         Integer supplierId = pageQuery.getSearchParamAsInteger("supplier");
 
         List<Product> products = productDao.findAll(DEFAULT_SORT);
@@ -210,6 +211,8 @@ public class ProductController {
         List<Product> filteredProducts = stream.filter(product -> {
             if(code!=null)
                 if(!product.getCode().toLowerCase().contains(code.toLowerCase())) return false;
+            if(name!=null)
+                if(!product.getName().toLowerCase().contains(name.toLowerCase())) return false;
             if(supplierId!=null)
                 if(!product.getSupplier().getId().equals(supplierId)) return false;
             return true;
