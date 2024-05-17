@@ -24,7 +24,7 @@ public class Productcategory {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "productstatus")
+    @OneToMany(mappedBy = "productcategory")
     private List<Product> productList;
 
     public Productcategory(Integer id) {

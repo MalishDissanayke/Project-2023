@@ -32,7 +32,31 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Type</mat-label>
+            <mat-select formControlName="producttype" required>
+              <mat-option *ngFor="let producttype of producttypes" [value]="producttype.id">{{producttype.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="producttypeField.invalid">
+              <span *ngIf="producttypeField.errors.required">Select at lease one product type</span>
+              <span *ngIf="producttypeField.errors.server">{{producttypeField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
 
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Category</mat-label>
+            <mat-select formControlName="productcategory" required>
+              <mat-option *ngFor="let productcategory of productcategories" [value]="productcategory.id">{{productcategory.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="productcategoryField.invalid">
+              <span *ngIf="productcategoryField.errors.required">Select at lease one material type</span>
+              <span *ngIf="productcategoryField.errors.server">{{productcategoryField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
         <div class="form-group">
           <h3 class="mb-0 mat-subheading-1 font-weight-light">Materials</h3>
           <app-productmaterial-sub-form [materials]="materials" [min]="0" [max]="0" formControlName="productmaterials"></app-productmaterial-sub-form>

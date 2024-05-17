@@ -184,7 +184,13 @@ import { ProductService } from '../../../../services/product.service';
 import { Product } from '../../../../entities/product';
 import {MaterialService} from '../../../../services/material.service';
 import {ResourceLink} from '../../../../shared/resource-link';
-import {DateHelper} from '../../../../shared/date-helper'; // Import MaterialService
+import {DateHelper} from '../../../../shared/date-helper';
+import {Materialtype} from '../../../../entities/materialtype';
+import {Producttype} from '../../../../entities/producttype';
+import {Productcategory} from '../../../../entities/productcategory';
+import {MaterialtypeService} from '../../../../services/materialtype.service';
+import {ProducttypeService} from '../../../../services/producttype.service';
+import {ProductcategoryService} from '../../../../services/productcategory.service'; // Import MaterialService
 
 @Component({
   selector: 'app-product-form',
@@ -192,6 +198,8 @@ import {DateHelper} from '../../../../shared/date-helper'; // Import MaterialSer
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent extends AbstractComponent implements OnInit {
+  producttypes: Producttype[] = [];
+  productcategories: Productcategory[] = [];
   materials: Material[] = [];
   @ViewChild(ProductmaterialSubFormComponent) productmaterialSubForm: ProductmaterialSubFormComponent;
 
@@ -202,6 +210,12 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
     // dorequired: new FormControl(null, [
     //
     // ]),
+    producttype: new FormControl(null, [
+      Validators.required,
+    ]),
+    productcategory: new FormControl(null, [
+      Validators.required,
+    ]),
     name: new FormControl(null, [
       Validators.required,
       Validators.minLength(null),
@@ -223,7 +237,12 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
   get nameField(): FormControl {
     return this.form.controls.name as FormControl;
   }
-
+  get producttypeField(): FormControl{
+    return this.form.controls.producttype as FormControl;
+  }
+  get productcategoryField(): FormControl{
+    return this.form.controls.productcategory as FormControl;
+  }
   get priceField(): FormControl {
     return this.form.controls.price as FormControl;
   }
@@ -236,7 +255,10 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
     return this.form.controls.description as FormControl;
   }
 
+
   constructor(
+    private producttypeService: ProducttypeService,
+    private productcategoryService: ProductcategoryService,
     private productService: ProductService,
     private materialService: MaterialService, // Inject MaterialService here
     private snackBar: MatSnackBar,
@@ -258,6 +280,24 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
   async loadData(): Promise<any> {
     this.updatePrivileges();
     if (!this.privilege.add) { return; }
+
+    this.updatePrivileges();
+    if (!this.privilege.add) { return; }
+
+    this.producttypeService.getAll().then((producttypes) => {
+      this.producttypes = producttypes;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+
+    this.productcategoryService.getAll().then((productcategories) => {
+      this.productcategories = productcategories;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+
   }
 
   updatePrivileges(): any {
@@ -276,6 +316,8 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
     const product: Product = new Product();
 
     product.productmaterialList = this.productmaterialsField.value;
+    product.producttype = this.producttypeField.value;
+    product.productcategory = this.productcategoryField.value;
     product.description = this.descriptionField.value;
     product.name = this.nameField.value;
     product.price = this.priceField.value;
@@ -295,6 +337,8 @@ export class ProductFormComponent extends AbstractComponent implements OnInit {
         case 400:
           const msg = JSON.parse(e.error.message);
           let knownError = false;
+          if (msg.producttype) { this.producttypeField.setErrors({server: msg.producttype}); knownError = true; }
+          if (msg.productcategory) { this.productcategoryField.setErrors({server: msg.productcategory}); knownError = true; }
           if (msg.name) { this.nameField.setErrors({ server: msg.name }); knownError = true; }
           if (msg.price) { this.priceField.setErrors({ server: msg.price }); knownError = true; }
           if (msg.productmaterialList) { this.productmaterialsField.setErrors({ server: msg.productmaterialList }); knownError = true; }
